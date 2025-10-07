@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>五聯方遊戲 - Pentominoes Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+            user-select: none;
+            flex-direction: column;
+        }
+
+        .game-title {
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 5px;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .info-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 10px;
+        }
+
+        .game-info {
+            font-size: 1.2em;
+            color: #555;
+            margin: 0;
+        }
+        
+        .main-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        
+        .center-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .game-container {
+            padding: 20px;
+            border: 2px solid #ccc;
+            background-color: #fff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .left-pieces, .right-pieces {
+            position: relative;
+            width: 100px;
+            height: 700px;
+        }
+        
+        .board {
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(10, 40px);
+            grid-template-rows: repeat(6, 40px);
+            border: 2px solid #333;
+            background-color: #eee;
+        }
+
+        .board-cell {
+            width: 40px;
+            height: 40px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+        }
+
+        .pentomino-wrapper {
+            position: absolute;
+            cursor: grab;
+            z-index: 100;
+            touch-action: none;
+            transition: none;
+        }
+        .pentomino-wrapper.dragging {
+            z-index: 200;
+            cursor: grabbing;
+        }
+
+        .pentomino-block {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            pointer-events: auto;
+            transition: none;
+        }
+        
+        /* 更新骨牌顏色 */
+        .pentomino-block.P { background-color: #6BC334; }
+        .pentomino-block.X { background-color: #F48000; }
+        .pentomino-block.F { background-color: #615E5D; }
+        .pentomino-block.V { background-color: #61BFF3; }
+        .pentomino-block.W { background-color: #009049; }
+        .pentomino-block.Y { background-color: #965942; }
+        .pentomino-block.I { background-color: #65C2A2; }
+        .pentomino-block.T { background-color: #EB3D00; }
+        .pentomino-block.Z { background-color: #FDC900; }
+        .pentomino-block.U { background-color: #715E9E; }
+        .pentomino-block.N { background-color: #FDFA00; }
+        .pentomino-block.L { background-color: #0089E0; }
+
+        #reset-button {
+            padding: 8px 16px;
+            font-size: 1em;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #completion-message {
+            font-size: 3em;
+            font-weight: bold;
+            color: #FF0000;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            display: none;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="game-title">Pentominoes 骨牌組合益智遊戲</h1>
+
+    <div class="info-container">
+        <h2 class="game-info">滑鼠左鍵移動　A旋轉　S鏡射</h2>
+        <button id="reset-button">重置</button>
+    </div>
+
+<div class="main-container">
+    <div class="left-pieces">
+        <div class="pentomino-wrapper P" data-shape-type="P" style="top: 10px; left: -140px;">
+            <div class="pentomino-block P" data-block-id="0"></div>
+            <div class="pentomino-block P" data-block-id="1"></div>
+            <div class="pentomino-block P" data-block-id="2"></div>
+            <div class="pentomino-block P" data-block-id="3"></div>
+            <div class="pentomino-block P" data-block-id="4"></div>
+        </div>
+        <div class="pentomino-wrapper X" data-shape-type="X" style="top: 150px; left: -140px;">
+            <div class="pentomino-block X" data-block-id="0"></div>
+            <div class="pentomino-block X" data-block-id="1"></div>
+            <div class="pentomino-block X" data-block-id="2"></div>
+            <div class="pentomino-block X" data-block-id="3"></div>
+            <div class="pentomino-block X" data-block-id="4"></div>
+        </div>
+        <div class="pentomino-wrapper F" data-shape-type="F" style="top: 290px; left: -140px;">
+            <div class="pentomino-block F" data-block-id="0"></div>
+            <div class="pentomino-block F" data-block-id="1"></div>
+            <div class="pentomino-block F" data-block-id="2"></div>
+            <div class="pentomino-block F" data-block-id="3"></div>
+            <div class="pentomino-block F" data-block-id="4"></div>
+        </div>
+        <div class="pentomino-wrapper V" data-shape-type="V" style="top: 10px; left: -20px;">
+            <div class="pentomino-block V" data-block-id="0"></div>
+            <div class="pentomino-block V" data-block-id="1"></div>
+            <div class="pentomino-block V" data-block-id="2"></div>
+            <div class="pentomino-block V" data-block-id="3"></div>
+            <div class="pentomino-block V" data-block-id="4"></div>
+        </div>
+        <div class="pentomino-wrapper W" data-shape-type="W" style="top: 150px; left: -20px;">
+            <div class="pentomino-block W" data-block-id="0"></div>
+            <div class="pentomino-block W" data-block-id="1"></div>
+            <div class="pentomino-block W" data-block-id="2"></div>
+            <div class="pentomino-block W" data-block-id="3"></div>
+            <div class="pentomino-block W" data-block-id="4"></div>
+        </div>
+        <div class="pentomino-wrapper Y" data-shape-type="Y" style="top: 290px; left: -20px;">
+            <div class="pentomino-block Y" data-block-id="0"></div>
+            <div class="pentomino-block Y" data-block-id="1"></div>
+            <div class="pentomino-block Y" data-block-id="2"></div>
+            <div class="pentomino-block Y" data-block-id="3"></div>
+            <div class="pentomino-block Y" data-block-id="4"></div>
+        </div>
+    </div>
+    
+    <div class="center-container">
+        <div class="game-container">
+            <div class="board"></div>
+        </div>
+        <div id="completion-message">太棒了！你完成了！</div>
+    </div>
+
+    <div class="right-pieces">
+        <div class="pentomino-wrapper I" data-shape-type="I" style="top: 10px; left: 0px;">
+            <div class="pentomino-block I" data-block-id="0"></div>
+            <div class="pentomino-block I" data-block-id="1"></div>
+            <div class="pentomino-block I" data-block-id="2"></div>
+            <div class="pentomino-block I" data-block-id="3"></div>
+            <div class="pentomino-block I" data-block-id="4"></div>
+        </div>
+        <div class="pentomino-wrapper T" data-shape-type="T" style="top: 150px; left: 0px;">
+            <div class="pentomino-block T" data-block-id="0"></div>
+            <div class="pentomino-block T" data-block-id="1"></div>
+            <div class="pentomino-block T" data-block-id="2"></div>
+            <div class="pentomino-block T" data-block-id="3"></div>
+            <div class="pentomino-block T" data-block-id="4"></div>
+        </div>
+        <div class="pentomino-wrapper Z" data-shape-type="Z" style="top: 290px; left: 0px;">
+            <div class="pentomino-block Z" data-block-id="0"></div>
+            <div class="pentomino-block Z" data-block-id="1"></div>
+            <div class="pentomino-block Z" data-block-id="2"></div>
+            <div class="pentomino-block Z" data-block-id="3"></div>
+            <div class="pentomino-block Z" data-block-id="4"></div>
+        </div>
+        <div class="pentomino-wrapper U" data-shape-type="U" style="top: 10px; left: 120px;">
+            <div class="pentomino-block U" data-block-id="0"></div>
+            <div class="pentomino-block U" data-block-id="1"></div>
+            <div class="pentomino-block U" data-block-id="2"></div>
+            <div class="pentomino-block U" data-block-id="3"></div>
+            <div class="pentomino-block U" data-block-id="4"></div>
+        </div>
+        <div class="pentomino-wrapper N" data-shape-type="N" style="top: 150px; left: 120px;">
+            <div class="pentomino-block N" data-block-id="0"></div>
+            <div class="pentomino-block N" data-block-id="1"></div>
+            <div class="pentomino-block N" data-block-id="2"></div>
+            <div class="pentomino-block N" data-block-id="3"></div>
+            <div class="pentomino-block N" data-block-id="4"></div>
+        </div>
+        <div class="pentomino-wrapper L" data-shape-type="L" style="top: 290px; left: 120px;">
+            <div class="pentomino-block L" data-block-id="0"></div>
+            <div class="pentomino-block L" data-block-id="1"></div>
+            <div class="pentomino-block L" data-block-id="2"></div>
+            <div class="pentomino-block L" data-block-id="3"></div>
+            <div class="pentomino-block L" data-block-id="4"></div>
+        </div>
+    </div>
+</div>
+
+<audio id="completion-sound" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" preload="auto"></audio>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const board = document.querySelector('.board');
+        const completionMessage = document.getElementById('completion-message');
+        const completionSound = document.getElementById('completion-sound');
+        const allPieces = document.querySelectorAll('.pentomino-wrapper');
+        const cellSize = 40;
+        
+        for (let i = 0; i < 60; i++) {
+            const cell = document.createElement('div');
+            cell.classList.add('board-cell');
+            board.appendChild(cell);
+        }
+
+        let activeWrapper = null;
+        let isDragging = false;
+        let offsetX = 0;
+        let offsetY = 0;
+        let originalParent = null;
+        
+        let lastMouseX = 0;
+        let lastMouseY = 0;
+        let currentHoveredWrapper = null;
+
+        const initialStates = {};
+        allPieces.forEach(wrapper => {
+            initialStates[wrapper.dataset.shapeType] = {
+                parentClass: wrapper.parentElement.className,
+                top: wrapper.style.top,
+                left: wrapper.style.left,
+                rotation: 0,
+                mirrored: false
+            };
+        });
+        
+        const originalShapeDefinitions = {
+            'P': [{x: 0, y: 0}, {x: 0, y: 1}, {x: 0, y: 2}, {x: 1, y: 1}, {x: 1, y: 2}],
+            'X': [{x: 1, y: 0}, {x: 0, y: 1}, {x: 1, y: 1}, {x: 2, y: 1}, {x: 1, y: 2}],
+            'F': [{x: 1, y: 0}, {x: 0, y: 1}, {x: 1, y: 1}, {x: 1, y: 2}, {x: 2, y: 2}],
+            'V': [{x: 0, y: 0}, {x: 0, y: 1}, {x: 0, y: 2}, {x: 1, y: 0}, {x: 2, y: 0}],
+            'W': [{x: 0, y: 1}, {x: 0, y: 2}, {x: 1, y: 0}, {x: 1, y: 1}, {x: 2, y: 0}],
+            'Y': [{x: 1, y: 0}, {x: 1, y: 1}, {x: 1, y: 2}, {x: 1, y: 3}, {x: 0, y: 2}],
+            'I': [{x: 0, y: 0}, {x: 0, y: 1}, {x: 0, y: 2}, {x: 0, y: 3}, {x: 0, y: 4}],
+            'T': [{x: 1, y: 0}, {x: 1, y: 1}, {x: 0, y: 2}, {x: 1, y: 2}, {x: 2, y: 2}],
+            'Z': [{x: 1, y: 0}, {x: 2, y: 0}, {x: 1, y: 1}, {x: 0, y: 2}, {x: 1, y: 2}],
+            'U': [{x: 0, y: 0}, {x: 1, y: 0}, {x: 2, y: 0}, {x: 0, y: 1}, {x: 2, y: 1}],
+            'N': [{x: 1, y: 0}, {x: 2, y: 0}, {x: 3, y: 0}, {x: 0, y: 1}, {x: 1, y: 1}],
+            'L': [{x: 0, y: 0}, {x: 1, y: 0}, {x: 2, y: 0}, {x: 3, y: 0}, {x: 3, y: 1}],
+        };
+
+        function rotatePoints(points) {
+            return points.map(p => ({ x: -p.y, y: p.x }));
+        }
+
+        function mirrorPoints(points) {
+            return points.map(p => ({ x: -p.x, y: p.y }));
+        }
+
+        function normalizePoints(points) {
+            const minX = Math.min(...points.map(p => p.x));
+            const minY = Math.min(...points.map(p => p.y));
+            return points.map(p => ({ x: p.x - minX, y: p.y - minY }));
+        }
+
+        function getTransformedPoints(shapeType, rotation, mirrored) {
+            let points = originalShapeDefinitions[shapeType];
+            if (mirrored) {
+                points = mirrorPoints(points);
+            }
+            for (let i = 0; i < rotation / 90; i++) {
+                points = rotatePoints(points);
+            }
+            return normalizePoints(points);
+        }
+
+        function updateBlockPositions(wrapper) {
+            const shapeType = wrapper.dataset.shapeType;
+            const rotation = parseInt(wrapper.dataset.rotation) || 0;
+            const mirrored = wrapper.dataset.mirrored === 'true';
+            const points = getTransformedPoints(shapeType, rotation, mirrored);
+            
+            wrapper.querySelectorAll('.pentomino-block').forEach((block, index) => {
+                block.style.left = `${points[index].x * cellSize}px`;
+                block.style.top = `${points[index].y * cellSize}px`;
+            });
+        }
+
+        allPieces.forEach(updateBlockPositions);
+
+        function checkCompletion() {
+            const placedPieces = document.querySelectorAll('.board > .pentomino-wrapper');
+            if (placedPieces.length !== 12) {
+                completionMessage.style.display = 'none';
+                return;
+            }
+
+            const occupiedCells = new Set();
+            for (const piece of placedPieces) {
+                const boardLeft = piece.offsetLeft;
+                const boardTop = piece.offsetTop;
+                const blocks = piece.querySelectorAll('.pentomino-block');
+                
+                for (const block of blocks) {
+                    const blockLeft = boardLeft + block.offsetLeft;
+                    const blockTop = boardTop + block.offsetTop;
+
+                    const col = Math.round(blockLeft / cellSize);
+                    const row = Math.round(blockTop / cellSize);
+                    
+                    if (col < 0 || col >= 10 || row < 0 || row >= 6) {
+                        completionMessage.style.display = 'none';
+                        return;
+                    }
+                    
+                    const cellKey = `${col}-${row}`;
+                    if (occupiedCells.has(cellKey)) {
+                        completionMessage.style.display = 'none';
+                        return;
+                    }
+                    occupiedCells.add(cellKey);
+                }
+            }
+
+            if (occupiedCells.size === 60) {
+                completionMessage.style.display = 'block';
+                completionSound.play().catch(e => console.error("Error playing sound:", e));
+            } else {
+                completionMessage.style.display = 'none';
+            }
+        }
+
+        document.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            lastMouseX = e.clientX;
+            lastMouseY = e.clientY;
+
+            if (isDragging) {
+                e.preventDefault();
+                activeWrapper.style.left = `${lastMouseX - offsetX}px`;
+                activeWrapper.style.top = `${lastMouseY - offsetY}px`;
+            } else {
+                currentHoveredWrapper = document.elementFromPoint(lastMouseX, lastMouseY)?.closest('.pentomino-wrapper');
+            }
+        });
+
+        document.addEventListener('mousedown', (e) => {
+            const clickedWrapper = e.target.closest('.pentomino-wrapper');
+            if (e.button === 0 && clickedWrapper) {
+                activeWrapper = clickedWrapper;
+                isDragging = true;
+                
+                const wrapperRect = activeWrapper.getBoundingClientRect();
+                
+                offsetX = e.clientX - wrapperRect.left;
+                offsetY = e.clientY - wrapperRect.top;
+
+                originalParent = activeWrapper.parentElement;
+                
+                activeWrapper.classList.add('dragging');
+                activeWrapper.style.position = 'fixed';
+                activeWrapper.style.left = `${wrapperRect.left}px`;
+                activeWrapper.style.top = `${wrapperRect.top}px`;
+            }
+        });
+
+        document.addEventListener('mouseup', (e) => {
+            if (!isDragging || !activeWrapper) return;
+            isDragging = false;
+            
+            const boardRect = board.getBoundingClientRect();
+            const initialContainer = document.querySelector(`.${initialStates[activeWrapper.dataset.shapeType].parentClass}`);
+
+            if (e.clientX > boardRect.left && 
+                e.clientX < boardRect.right &&
+                e.clientY > boardRect.top &&
+                e.clientY < boardRect.bottom) {
+                
+                const newLeft = Math.round((e.clientX - boardRect.left - offsetX) / cellSize) * cellSize;
+                const newTop = Math.round((e.clientY - boardRect.top - offsetY) / cellSize) * cellSize;
+
+                activeWrapper.style.position = 'absolute';
+                activeWrapper.style.left = `${newLeft}px`;
+                activeWrapper.style.top = `${newTop}px`;
+                board.appendChild(activeWrapper);
+                
+            } else {
+                const newLeft = e.clientX - initialContainer.getBoundingClientRect().left - offsetX;
+                const newTop = e.clientY - initialContainer.getBoundingClientRect().top - offsetY;
+
+                activeWrapper.style.position = 'absolute';
+                activeWrapper.style.left = `${newLeft}px`;
+                activeWrapper.style.top = `${newTop}px`;
+                
+                initialContainer.appendChild(activeWrapper);
+            }
+            
+            activeWrapper.classList.remove('dragging');
+            activeWrapper = null;
+            
+            checkCompletion();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (!currentHoveredWrapper || (e.key.toLowerCase() !== 'a' && e.key.toLowerCase() !== 's')) {
+                return;
+            }
+
+            const hoveredWrapper = currentHoveredWrapper;
+            const shapeType = hoveredWrapper.dataset.shapeType;
+            let currentRotation = parseInt(hoveredWrapper.dataset.rotation) || 0;
+            let mirrored = hoveredWrapper.dataset.mirrored === 'true';
+
+            const clickedBlock = document.elementFromPoint(lastMouseX, lastMouseY)?.closest('.pentomino-block');
+            if (!clickedBlock || clickedBlock.closest('.pentomino-wrapper') !== hoveredWrapper) {
+                return;
+            }
+            
+            const currentPoints = getTransformedPoints(shapeType, currentRotation, mirrored);
+            const clickedBlockIndex = Array.from(hoveredWrapper.querySelectorAll('.pentomino-block')).indexOf(clickedBlock);
+            const pivotPoint = currentPoints[clickedBlockIndex];
+
+            if (e.key.toLowerCase() === 'a') {
+                currentRotation = (currentRotation + 90) % 360;
+            } else if (e.key.toLowerCase() === 's') {
+                mirrored = !mirrored;
+            }
+
+            const newPoints = getTransformedPoints(shapeType, currentRotation, mirrored);
+            const newPivotPoint = newPoints[clickedBlockIndex];
+
+            const currentLeft = parseFloat(hoveredWrapper.style.left);
+            const currentTop = parseFloat(hoveredWrapper.style.top);
+            
+            const newLeft = Math.round(currentLeft - (newPivotPoint.x - pivotPoint.x) * cellSize);
+            const newTop = Math.round(currentTop - (newPivotPoint.y - pivotPoint.y) * cellSize);
+
+            hoveredWrapper.style.left = `${newLeft}px`;
+            hoveredWrapper.style.top = `${newTop}px`;
+            
+            hoveredWrapper.dataset.rotation = currentRotation;
+            hoveredWrapper.dataset.mirrored = mirrored;
+
+            updateBlockPositions(hoveredWrapper);
+        });
+
+        document.getElementById('reset-button').addEventListener('click', () => {
+            document.querySelectorAll('.pentomino-wrapper').forEach(wrapper => {
+                const shapeType = wrapper.dataset.shapeType;
+                const initialState = initialStates[shapeType];
+
+                const initialParent = document.querySelector(`.${initialState.parentClass}`);
+                if (wrapper.parentElement !== initialParent) {
+                    initialParent.appendChild(wrapper);
+                }
+                wrapper.style.left = initialState.left;
+                wrapper.style.top = initialState.top;
+                
+                wrapper.dataset.rotation = initialState.rotation;
+                wrapper.dataset.mirrored = initialState.mirrored;
+
+                updateBlockPositions(wrapper);
+            });
+            completionMessage.style.display = 'none';
+            // 停止音樂並將播放時間歸零
+            completionSound.pause();
+            completionSound.currentTime = 0;
+        });
+    });
+</script>
+</body>
+</html>

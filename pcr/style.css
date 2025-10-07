@@ -1,0 +1,238 @@
+/*==================================
+  顏色變數與基礎設定 (Variables & General)
+==================================*/
+
+:root {
+    /* 定義顏色變數，方便未來統一修改 */
+    --primary-color: #006699;      /* 主要連結色 (深藍) */
+    --hover-color: #00476B;        /* 懸停色 (深藍) */
+    --background-light: #CACACA;   /* 淺灰色背景 (頁面底色) */
+    --main-container-bg: #D4FFFB;  /* 主內容容器的背景色：很淺的淺藍色 (Mint Cream F0FFF0) */
+    --header-bg: #99CCFF;          /* 標題背景色 */
+    --border-color: #ddd;          /* 邊框顏色 (較淺，現代風格) */
+    --font-default: "微軟正黑體", "Microsoft JhengHei", "Verdana", "Arial", "Helvetica", sans-serif;
+}
+
+body {
+    font-family: var(--font-default);
+    font-size: 16px;
+    color: #000000;
+    margin: 0;
+    line-height: 1.6;
+    background-color: var(--background-light); /* 頁面邊緣和容器外的底色 */
+}
+
+/* 原始 body 內嵌背景圖樣式 - 已移除背景圖片 */
+.bg {
+    /* 這裡不再包含 background-image: url(./image/bg.gif); */
+    background-attachment: fixed;
+    background-position: center top;
+    background-repeat: repeat;
+}
+
+
+/*==================================
+  主要內容佈局 (Main Layout)
+==================================*/
+
+/* 內容容器：取代原表格，提供居中、邊距和主背景 */
+.page-container {
+    max-width: 1200px;
+    min-height: 100vh;
+    margin: 0 auto; /* 居中 */
+    padding: 30px 20px;
+    
+    /* 主頁面內容框使用淺藍色 */
+    background-color: var(--main-container-bg);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Links Grid - 核心佈局容器 (使用 CSS Grid 實現響應式多欄) */
+.links-grid {
+    /* 預設在桌面瀏覽器上使用三欄佈局，欄寬自適應 */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px; /* 區塊間距 */
+}
+
+.link-group {
+    padding: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    /* 連結組塊使用白色背景，與淺藍色主容器形成層次感 */
+    background-color: #fff; 
+    transition: box-shadow 0.3s;
+}
+
+.link-group:hover {
+    box-shadow: 0 4px 10px rgba(var(--primary-color), 0.1);
+}
+
+/* 讓「網管專用」區塊在大螢幕佔用多欄 */
+@media (min-width: 900px) {
+    .links-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .links-grid .wide-column {
+        grid-column: 1 / -1; /* 佔據所有欄位 */
+    }
+    
+    /* 讓網管區塊的列表自動分為多欄 */
+    .links-grid .wide-column .link-list {
+        column-count: 2;
+        column-gap: 30px;
+    }
+}
+
+/* 手機佈局 (小螢幕) */
+@media (max-width: 600px) {
+    .page-container {
+        padding: 15px 10px;
+    }
+    .hd0 {
+        font-size: 2em;
+    }
+    .links-grid {
+        grid-template-columns: 1fr; /* 變回單欄 */
+    }
+}
+
+
+/*==================================
+  文字與標題 (Typography)
+==================================*/
+
+/* 網站主標題 (H1) */
+.hd0 {
+    font-size: 2.5em;
+    font-weight: 700;
+    text-align: center;
+    color: #000000;
+    padding: 15px 0;
+    margin: 0 0 40px 0;
+    border-bottom: 3px solid var(--primary-color);
+}
+
+/* 區塊小標題 (H2) */
+.hd1 {
+    font-size: 1.5em;
+    font-weight: 700;
+    text-align: left;
+    color: #000000;
+    background-color: var(--header-bg);
+    padding: 8px 15px;
+    margin: 0 0 15px 0;
+    border-radius: 4px;
+    border-left: 5px solid var(--primary-color);
+}
+
+
+/*==================================
+  連結與列表 (Links & Lists)
+==================================*/
+
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+    transition: color 0.2s, background-color 0.2s;
+}
+
+a:hover {
+    color: var(--hover-color);
+    background-color: #9DEEFF;
+    text-decoration: underline;
+}
+
+/* 連結列表容器：取代原始的 .list2 */
+.link-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.link-list li {
+    padding: 5px 0;
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.link-list li:last-child {
+    border-bottom: none;
+}
+
+/* 連結分隔線：用於線上教學區塊內的分類 */
+.separator {
+    font-weight: bold;
+    color: #666;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 15px;
+    border-top: 2px solid var(--border-color) !important;
+    border-bottom: none !important;
+    background-color: #f5f5f5;
+}
+
+/* QR Code 連結排版 (主頁面上的小圖標) */
+.link-with-qrcode {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 10px;
+}
+
+.qrcode-link {
+    flex-shrink: 0;
+    line-height: 0;
+    padding: 2px;
+}
+
+.qrcode-link img {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #999;
+    vertical-align: middle;
+}
+
+.qrcode-link:hover {
+    background-color: transparent;
+}
+
+
+/*==================================
+  QR Code 獨立頁面樣式 (統一風格)
+==================================*/
+
+/* 1. 整個 QR Code 頁面背景使用淺黃色 (與主頁面body一致) */
+.qrcode-page-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    background-color: var(--background-light); 
+}
+
+/* 2. QR Code 內框使用淺藍色 (與主頁面內容框一致) */
+.qrcode-container {
+    max-width: 450px; 
+    width: 90%;      
+    text-align: center;
+    padding: 20px;
+    background-color: var(--main-container-bg); 
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box; 
+}
+
+/* 核心響應式圖片樣式 */
+.qrcode-img {
+    max-width: 100%; 
+    height: auto;    
+    display: block;  
+    margin: 20px auto 0 auto;
+    border: 3px solid var(--primary-color); 
+    border-radius: 6px;
+}
