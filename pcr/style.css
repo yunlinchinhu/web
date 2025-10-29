@@ -5,9 +5,9 @@
 :root {
     /* 定義顏色變數，方便未來統一修改 */
     --primary-color: #006699;      /* 主要連結色 (深藍) */
-    --hover-color: #00476B;        /* 懸停色 (深藍) */
-    --background-light: #CACACA;   /* 淺灰色背景 (頁面底色) */
-    --main-container-bg: #D4FFFB;  /* 主內容容器的背景色：很淺的淺藍色 (Mint Cream F0FFF0) */
+    --hover-color: #6d0000;        /* 懸停色 (深紅) */
+    --background-light: #FFFCB1;   /* 淺黃色背景 (頁面底色) */
+    --main-container-bg: #F0FFF0;  /* 主內容容器的背景色：很淺的淺綠色 (Mint Cream) */
     --header-bg: #99CCFF;          /* 標題背景色 */
     --border-color: #ddd;          /* 邊框顏色 (較淺，現代風格) */
     --font-default: "微軟正黑體", "Microsoft JhengHei", "Verdana", "Arial", "Helvetica", sans-serif;
@@ -32,7 +32,7 @@ body {
 
 
 /*==================================
-  主要內容佈局 (Main Layout)
+  主要內容佈局 (Main Layout - index.html)
 ==================================*/
 
 /* 內容容器：取代原表格，提供居中、邊距和主背景 */
@@ -42,13 +42,13 @@ body {
     margin: 0 auto; /* 居中 */
     padding: 30px 20px;
     
-    /* 主頁面內容框使用淺藍色 */
+    /* 主頁面內容框使用淺綠色 */
     background-color: var(--main-container-bg);
     border: 1px solid var(--border-color);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Links Grid - 核心佈局容器 (使用 CSS Grid 實現響應式多欄) */
+/* Links Grid - 核心佈局容器 (index.html 上的連結群組) */
 .links-grid {
     /* 預設在桌面瀏覽器上使用三欄佈局，欄寬自適應 */
     display: grid;
@@ -60,13 +60,13 @@ body {
     padding: 15px;
     border: 1px solid var(--border-color);
     border-radius: 8px;
-    /* 連結組塊使用白色背景，與淺藍色主容器形成層次感 */
+    /* 連結組塊使用白色背景，與淺綠色主容器形成層次感 */
     background-color: #fff; 
     transition: box-shadow 0.3s;
 }
 
 .link-group:hover {
-    box-shadow: 0 4px 10px rgba(var(--primary-color), 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* 讓「網管專用」區塊在大螢幕佔用多欄 */
@@ -83,19 +83,6 @@ body {
     .links-grid .wide-column .link-list {
         column-count: 2;
         column-gap: 30px;
-    }
-}
-
-/* 手機佈局 (小螢幕) */
-@media (max-width: 600px) {
-    .page-container {
-        padding: 15px 10px;
-    }
-    .hd0 {
-        font-size: 2em;
-    }
-    .links-grid {
-        grid-template-columns: 1fr; /* 變回單欄 */
     }
 }
 
@@ -141,11 +128,11 @@ a {
 
 a:hover {
     color: var(--hover-color);
-    background-color: #9DEEFF;
+    background-color: #fff180;
     text-decoration: underline;
 }
 
-/* 連結列表容器：取代原始的 .list2 */
+/* 連結列表容器 */
 .link-list {
     list-style: none;
     margin: 0;
@@ -161,7 +148,7 @@ a:hover {
     border-bottom: none;
 }
 
-/* 連結分隔線：用於線上教學區塊內的分類 */
+/* 連結分隔線 */
 .separator {
     font-weight: bold;
     color: #666;
@@ -200,10 +187,10 @@ a:hover {
 
 
 /*==================================
-  QR Code 獨立頁面樣式 (統一風格)
+  單獨頁面樣式 (QR Code 頁面 & 常用公務網站頁面)
 ==================================*/
 
-/* 1. 整個 QR Code 頁面背景使用淺黃色 (與主頁面body一致) */
+/* 1. 整個頁面背景使用淺黃色 (與主頁面body一致) */
 .qrcode-page-body {
     display: flex;
     flex-direction: column;
@@ -215,7 +202,7 @@ a:hover {
     background-color: var(--background-light); 
 }
 
-/* 2. QR Code 內框使用淺藍色 (與主頁面內容框一致) */
+/* 2. 內容內框使用淺綠色 (與主頁面內容框一致) */
 .qrcode-container {
     max-width: 450px; 
     width: 90%;      
@@ -227,10 +214,72 @@ a:hover {
     box-sizing: border-box; 
 }
 
-/* 核心響應式圖片樣式 */
+/* 擴大內容容器寬度以容納多欄 (供公務網站頁面使用) */
+.qrcode-container.content-full-width {
+    max-width: 1200px; /* 擴大最大寬度 */
+    width: 95%;      
+    text-align: left; /* 內容對齊左邊 */
+    padding: 30px;
+}
+
+
+/*==================================
+  公務網站頁面佈局 (Responsive Grid Layout)
+==================================*/
+
+/* 核心佈局容器：使用 CSS Grid 實現響應式自動編排 */
+.responsive-link-grid {
+    display: grid;
+    gap: 25px; /* 區塊間距 */
+    margin-top: 20px;
+    padding: 0;
+    
+    /* 智能調整欄位數量的關鍵：
+       根據螢幕寬度自動調整為 1、2 或 3 欄。
+    */
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+
+/*==================================
+  響應式媒體查詢 (Media Queries)
+==================================*/
+
+/* 窄螢幕/手機優化 */
+@media (max-width: 650px) {
+    /* 主頁面佈局 */
+    .page-container {
+        padding: 15px 10px;
+    }
+    
+    .hd0 {
+        font-size: 2em;
+    }
+    
+    .links-grid {
+        grid-template-columns: 1fr; /* 主頁面變回單欄 */
+    }
+
+    /* 單獨頁面佈局 */
+    .qrcode-container.content-full-width {
+        padding: 15px; /* 窄螢幕內邊距縮小 */
+    }
+    
+    .responsive-link-grid {
+        /* 公務頁面強制單欄疊放 */
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+}
+
+
+/*==================================
+  QR Code 圖片樣式 (響應式)
+==================================*/
+
 .qrcode-img {
-    max-width: 100%; 
-    height: auto;    
+    max-width: 100%; /* 圖片寬度最多只能是容器的 100% (關鍵！) */
+    height: auto;    /* 保持圖片的原始比例 (關鍵！) */
     display: block;  
     margin: 20px auto 0 auto;
     border: 3px solid var(--primary-color); 
