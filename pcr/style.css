@@ -5,7 +5,7 @@
 :root {
     /* 定義顏色變數，方便未來統一修改 */
     --primary-color: #006699;      /* 主要連結色 (深藍) */
-    --hover-color: #00476B;        /* 懸停色 (深藍) */
+    --hover-color: #6d0000;        /* 懸停色 (深紅) - 備用，目前在 a:hover 中被新顏色覆蓋 */
     
     /* 網頁底色：淺灰色 */
     --background-light: #F0F0F0;   
@@ -133,13 +133,16 @@ body {
 
 a {
     text-decoration: none;
-    color: var(--primary-color);
+    color: var(--primary-color); /* 預設字體顏色：深藍色 #006699 */
     transition: color 0.2s, background-color 0.2s;
 }
 
 a:hover {
-    color: var(--hover-color);
-    background-color: #fff180;
+    /* 【已更新！】滑鼠懸停時的淺綠色底色 */
+    background-color: #A8E7AE; 
+    /* 懸停字體顏色：暗青藍色 */
+    color: #004080; 
+    
     text-decoration: underline;
 }
 
@@ -198,15 +201,11 @@ a:hover {
 
 
 /*==================================
-  單獨頁面樣式 (QR Code 頁面) - 僅保留單頁 QR Code 相關樣式
+  單獨頁面樣式 (QR Code 頁面)
 ==================================*/
 
-/* 1. 整個頁面背景使用淺灰色 (body 已經處理) */
-/* 由於 links.html 已使用 .page-container，因此移除 .qrcode-page-body */
-
-/* 2. 標準 QR Code 容器：針對單獨的 QR Code 頁面使用 */
+/* 標準 QR Code 容器：針對單獨展示 QR Code 的頁面使用 */
 .qrcode-container {
-    /* 這裡的樣式只適用於單獨展示 QR Code 的頁面 */
     max-width: 450px; 
     width: 90%;      
     text-align: center;
@@ -214,7 +213,7 @@ a:hover {
     margin: 0 auto; /* 確保居中 */
     
     background-color: var(--main-container-bg); 
-    border-radius: 8px; /* 圓角保持 */
+    border-radius: 8px; 
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     box-sizing: border-box; 
 }
@@ -278,4 +277,3 @@ a:hover {
     border: 3px solid var(--primary-color); 
     border-radius: 6px;
 }
-
