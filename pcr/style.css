@@ -6,7 +6,10 @@
     /* 定義顏色變數，方便未來統一修改 */
     --primary-color: #006699;      /* 主要連結色 (深藍) */
     --hover-color: #6d0000;        /* 懸停色 (深紅) */
-    --background-light: #FFFCB1;   /* 淺黃色背景 (頁面底色) */
+    
+    /* 網頁底色：淺灰色 */
+    --background-light: #F0F0F0;   
+    
     --main-container-bg: #F0FFF0;  /* 主內容容器的背景色：很淺的淺綠色 (Mint Cream) */
     --header-bg: #99CCFF;          /* 標題背景色 */
     --border-color: #ddd;          /* 邊框顏色 (較淺，現代風格) */
@@ -19,12 +22,15 @@ body {
     color: #000000;
     margin: 0;
     line-height: 1.6;
-    background-color: var(--background-light); /* 頁面邊緣和容器外的底色 */
+    background-color: var(--background-light); /* 頁面邊緣和容器外的底色 (淺灰色) */
+    
+    /* 確保 index.html 和 links.html 的淺灰色背景上下邊界一致 */
+    padding-top: 25px;
+    padding-bottom: 25px;
 }
 
 /* 原始 body 內嵌背景圖樣式 - 已移除背景圖片 */
 .bg {
-    /* 這裡不再包含 background-image: url(./image/bg.gif); */
     background-attachment: fixed;
     background-position: center top;
     background-repeat: repeat;
@@ -32,20 +38,25 @@ body {
 
 
 /*==================================
-  主要內容佈局 (Main Layout - index.html)
+  主要內容佈局 (Main Layout - index.html & links.html)
 ==================================*/
 
-/* 內容容器：取代原表格，提供居中、邊距和主背景 */
+/* 內容容器：適用於 index.html 和 links.html 的主內容框 */
 .page-container {
     max-width: 1200px;
-    min-height: 100vh;
+    
     margin: 0 auto; /* 居中 */
-    padding: 30px 20px;
+    
+    /* 淺綠色框內部的上下內邊距 (50px)，統一所有頁面風格 */
+    padding: 50px 20px; 
     
     /* 主頁面內容框使用淺綠色 */
     background-color: var(--main-container-bg);
     border: 1px solid var(--border-color);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    
+    /* 統一圓角 */
+    border-radius: 8px; 
 }
 
 /* Links Grid - 核心佈局容器 (index.html 上的連結群組) */
@@ -187,39 +198,25 @@ a:hover {
 
 
 /*==================================
-  單獨頁面樣式 (QR Code 頁面 & 常用公務網站頁面)
+  單獨頁面樣式 (QR Code 頁面) - 僅保留單頁 QR Code 相關樣式
 ==================================*/
 
-/* 1. 整個頁面背景使用淺黃色 (與主頁面body一致) */
-.qrcode-page-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    padding: 20px;
-    background-color: var(--background-light); 
-}
+/* 1. 整個頁面背景使用淺灰色 (body 已經處理) */
+/* 由於 links.html 已使用 .page-container，因此移除 .qrcode-page-body */
 
-/* 2. 內容內框使用淺綠色 (與主頁面內容框一致) */
+/* 2. 標準 QR Code 容器：針對單獨的 QR Code 頁面使用 */
 .qrcode-container {
+    /* 這裡的樣式只適用於單獨展示 QR Code 的頁面 */
     max-width: 450px; 
     width: 90%;      
     text-align: center;
     padding: 20px;
+    margin: 0 auto; /* 確保居中 */
+    
     background-color: var(--main-container-bg); 
-    border-radius: 8px;
+    border-radius: 8px; /* 圓角保持 */
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     box-sizing: border-box; 
-}
-
-/* 擴大內容容器寬度以容納多欄 (供公務網站頁面使用) */
-.qrcode-container.content-full-width {
-    max-width: 1200px; /* 擴大最大寬度 */
-    width: 95%;      
-    text-align: left; /* 內容對齊左邊 */
-    padding: 30px;
 }
 
 
@@ -227,7 +224,7 @@ a:hover {
   公務網站頁面佈局 (Responsive Grid Layout)
 ==================================*/
 
-/* 核心佈局容器：使用 CSS Grid 實現響應式自動編排 */
+/* 核心佈局容器：此佈局現在應該放在 links.html 內的 .page-container 裡 */
 .responsive-link-grid {
     display: grid;
     gap: 25px; /* 區塊間距 */
@@ -249,7 +246,8 @@ a:hover {
 @media (max-width: 650px) {
     /* 主頁面佈局 */
     .page-container {
-        padding: 15px 10px;
+        /* 手機模式下的內邊距 */
+        padding: 20px 10px;
     }
     
     .hd0 {
@@ -260,13 +258,8 @@ a:hover {
         grid-template-columns: 1fr; /* 主頁面變回單欄 */
     }
 
-    /* 單獨頁面佈局 */
-    .qrcode-container.content-full-width {
-        padding: 15px; /* 窄螢幕內邊距縮小 */
-    }
-    
+    /* 公務頁面強制單欄疊放 */
     .responsive-link-grid {
-        /* 公務頁面強制單欄疊放 */
         grid-template-columns: 1fr;
         gap: 15px;
     }
