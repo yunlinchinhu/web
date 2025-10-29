@@ -5,7 +5,7 @@
 :root {
     /* 定義顏色變數，方便未來統一修改 */
     --primary-color: #006699;      /* 主要連結色 (深藍) */
-    --hover-color: #6d0000;        /* 懸停色 (深紅) */
+    --hover-color: #00476B;        /* 懸停色 (深藍) */
     
     /* 網頁底色：淺灰色 */
     --background-light: #F0F0F0;   
@@ -278,3 +278,4 @@ a:hover {
     border: 3px solid var(--primary-color); 
     border-radius: 6px;
 }
+
