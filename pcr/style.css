@@ -338,6 +338,20 @@ td {
     font-size: 15px;
 }
 
+/* 補上：原始 .cell2 類別（郵區、電話等短資料），強制水平置中對齊 */
+.cell2 {
+    background-color: var(--cell2-data-bg) !important;
+    color: var(--text-blue) !important;
+    text-align: center !important;
+}
+
+/* 補上：原始 .cell3 類別（通常是地址），維持靠左對齊，方便閱讀長文字 */
+.cell3 {
+    background-color: var(--cell2-data-bg) !important;
+    color: var(--text-blue) !important;
+    text-align: left !important;
+}
+
 /* 針對帶有原始點 class 的儲存格設定 */
 tr th.cell1, tr td:first-child {
     background-color: var(--cell1-header-bg) !important;
