@@ -1,0 +1,2244 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>雲林縣中小學聯絡資料</title>
+    <style>
+        :root {
+            --primary-dark-blue: #3366FF;   /* 原始表格的外框深藍色 */
+            --cell1-header-bg: #99CCFF;     /* .cell1: 標頭與校名的粉藍色背景 */
+            --cell2-data-bg: #CCFFFF;       /* .cell2 / .cell3: 資料列的淡藍色背景 */
+            --text-black: #000000;          
+            --text-blue: #0000FF;           
+            --bg-color: #f4f6f9;            
+            --card-bg: #ffffff;
+        }
+        body {
+            font-family: "Microsoft JhengHei", "微軟正黑體", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: #000000;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.5;
+        }
+        .page-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 24px;
+            position: relative;
+        }
+        .accessible-brick {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            color: var(--primary-dark-blue);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        h1 {
+            text-align: center;
+            color: #000000;
+            margin-top: 10px;
+            margin-bottom: 24px;
+            font-size: 26px;
+            font-weight: bold;
+        }
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+            margin-bottom: 30px;
+            background: #eef2f7;
+            padding: 16px;
+            border-radius: 6px;
+            border: 1px solid #ced4da;
+        }
+        .menu-btn {
+            background-color: #ffffff;
+            color: #000000;
+            border: 1px solid #b8c2cc;
+            padding: 10px 6px;
+            text-align: center;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+        .menu-btn:hover {
+            background-color: var(--cell2-data-bg);
+            border-color: var(--primary-dark-blue);
+        }
+        .menu-btn.active {
+            background-color: var(--primary-dark-blue);
+            color: #ffffff;
+            border-color: var(--primary-dark-blue);
+        }
+        .menu-btn.junior-btn {
+            background-color: var(--cell1-header-bg);
+            border-color: var(--primary-dark-blue);
+        }
+        .menu-btn.junior-btn.active {
+            background-color: var(--primary-dark-blue);
+            color: #ffffff;
+        }
+        .content-section {
+            display: none;
+            animation: fadeIn 0.25s ease;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .section-title {
+            font-size: 22px;
+            color: #000000;
+            font-weight: bold;
+            border-left: 6px solid var(--primary-dark-blue);
+            padding-left: 12px;
+            margin-bottom: 18px;
+        }
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            background-color: var(--primary-dark-blue); 
+            padding: 2px; 
+            border-radius: 4px;
+        }
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 1px; 
+            text-align: left;
+            min-width: 750px;
+        }
+        th {
+            background-color: var(--cell1-header-bg);
+            color: var(--text-black);
+            padding: 10px 12px;
+            font-weight: normal;
+            text-align: center;
+            font-size: 15px;
+        }
+        td {
+            background-color: var(--cell2-data-bg);
+            color: var(--text-blue);
+            padding: 10px 12px;
+            font-size: 15px;
+        }
+        tr th.cell1, tr td:first-child {
+            background-color: var(--cell1-header-bg) !important;
+            color: var(--text-black) !important;
+            text-align: center;
+            font-weight: normal;
+            width: 15%;
+        }
+        .text-center {
+            text-align: center;
+        }
+        tr:hover td {
+            filter: brightness(0.96);
+        }
+        .scroll-target {
+            scroll-margin-top: 20px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+<div class="page-container">
+    <a class="accessible-brick" href="#main-content" accesskey="C" title="主要內容">:::</a>
+    <h1 id="main-content">雲林縣中小學聯絡資料</h1>
+    <nav class="menu-grid" aria-label="鄉鎮市學校選單">
+        <button class="menu-btn" id="btn-630" onclick="switchTab('630')">斗南鎮</button>
+        <button class="menu-btn" id="btn-631" onclick="switchTab('631')">大埤鄉</button>
+        <button class="menu-btn" id="btn-632" onclick="switchTab('632')">虎尾鎮</button>
+        <button class="menu-btn" id="btn-633" onclick="switchTab('633')">土庫鎮</button>
+        <button class="menu-btn" id="btn-634" onclick="switchTab('634')">褒忠鄉</button>
+        <button class="menu-btn" id="btn-635" onclick="switchTab('635')">東勢鄉</button>
+        <button class="menu-btn" id="btn-636" onclick="switchTab('636')">臺西鄉</button>
+        <button class="menu-btn" id="btn-637" onclick="switchTab('637')">崙背鄉</button>
+        <button class="menu-btn" id="btn-638" onclick="switchTab('638')">麥寮鄉</button>
+        <button class="menu-btn" id="btn-640" onclick="switchTab('640')">斗六市</button>
+        <button class="menu-btn" id="btn-643" onclick="switchTab('643')">林內鄉</button>
+        <button class="menu-btn" id="btn-646" onclick="switchTab('646')">古坑鄉</button>
+        <button class="menu-btn" id="btn-647" onclick="switchTab('647')">莿桐鄉</button>
+        <button class="menu-btn" id="btn-648" onclick="switchTab('648')">西螺鎮</button>
+        <button class="menu-btn" id="btn-649" onclick="switchTab('649')">二崙鄉</button>
+        <button class="menu-btn" id="btn-651" onclick="switchTab('651')">北港鎮</button>
+        <button class="menu-btn" id="btn-652" onclick="switchTab('652')">水林鄉</button>
+        <button class="menu-btn" id="btn-653" onclick="switchTab('653')">口湖鄉</button>
+        <button class="menu-btn" id="btn-654" onclick="switchTab('654')">四湖鄉</button>
+        <button class="menu-btn" id="btn-655" onclick="switchTab('655')">元長鄉</button>
+        <button class="menu-btn junior-btn" id="btn-junior" onclick="switchTab('junior')">縣立國中</button>
+    </nav>
+
+    
+    <section id="sec-630" class="content-section scroll-target">
+        <div class="section-title">斗南鎮</div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>校名</th><th>郵區</th><th>地址</th><th>電話</th><th>傳真</th><th>網路電話</th><th>網路市話</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+    <th class=cell1>斗南國小</th>
+    <td class=cell2>630</td>
+    <td class=cell3>斗南鎮文昌路150號</td>
+    <td class=cell2>5972020</td>
+    <td class=cell2>5966678</td>
+    <td class=cell2>90927</td>
+    <td class=cell2>6341127</td>
+  </tr>
+                    <tr>
+    <th class=cell1>大東國小</th>
+    <td class=cell2>630</td>
+    <td class=cell3>斗南鎮新崙里港墘1號</td>
+    <td class=cell2>5972434</td>
+    <td class=cell2>5968751</td>
+    <td class=cell2>90930</td>
+    <td class=cell2>6341130</td>
+  </tr>
+                    <tr>
+    <th class=cell1>石龜國小</th>
+    <td class=cell2>630</td>
+    <td class=cell3>斗南鎮石龜里南生路1號</td>
+    <td class=cell2>5972354</td>
+    <td class=cell2>5961354</td>
+    <td class=cell2>90929</td>
+    <td class=cell2>6341129</td>
+  </tr>
+                    <tr>
+    <th class=cell1>重光國小</th>
+    <td class=cell2>630</td>
+    <td class=cell3>斗南鎮將軍里溫厝1號</td>
+    <td class=cell2>5972454</td>
+    <td class=cell2>5966482</td>
+    <td class=cell2>90931</td>
+    <td class=cell2>6341131</td>
+  </tr>
+                    <tr>
+    <th class=cell1>文安國小</th>
+    <td class=cell2>630</td>
+    <td class=cell3>斗南鎮延平路一段189號</td>
+    <td class=cell2>5972265</td>
+    <td class=cell2>5973431</td>
+    <td class=cell2>90928</td>
+    <td class=cell2>6341128</td>
+  </tr>
+                    <tr>
+    <th class=cell1>僑真國小</th>
+    <td class=cell2>630</td>
+    <td class=cell3>斗南鎮延平路642號</td>
+    <td class=cell2>5972241</td>
+    <td class=cell2>5968419</td>
+    <td class=cell2>90926</td>
+    <td class=cell2>6341126</td>
+  </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section id="sec-631" class="content-section scroll-target">
+        <div class="section-title">大埤鄉</div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>校名</th><th>郵區</th><th>地址</th><th>電話</th><th>傳真</th><th>網路電話</th><th>網路市話</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+    <th class=cell1>大埤國小</th>
+    <td class=cell2>631</td>
+    <td class=cell3>大埤鄉南和村中正路23號</td>
+    <td class=cell2>5912007</td>
+    <td class=cell2>5912451</td>
+    <td class=cell2>90932</td>
+    <td class=cell2>6341132</td>
+  </tr>
+                    <tr>
+    <th class=cell1>舊庄國小</th>
+    <td class=cell2>631</td>
+    <td class=cell3>大埤鄉怡然村怡然路92號</td>
+    <td class=cell2>5912094</td>
+    <td class=cell2>5916983</td>
+    <td class=cell2>90933</td>
+    <td class=cell2>6341133</td>
+  </tr>
+                    <tr>
+    <th class=cell1>仁和國小</th>
+    <td class=cell2>631</td>
+    <td class=cell3>大埤鄉豐岡村仁和路4號</td>
+    <td class=cell2>5912454</td>
+    <td class=cell2>5910540</td>
+    <td class=cell2>90934</td>
+    <td class=cell2>6341134</td>
+  </tr>
+                    <tr>
+    <th class=cell1>嘉興國小</th>
+    <td class=cell2>631</td>
+    <td class=cell3>大埤鄉嘉興村65號</td>
+    <td class=cell2>5912434</td>
+    <td class=cell2>5910625</td>
+    <td class=cell2>90935</td>
+    <td class=cell2>6341135</td>
+  </tr>
+                    <tr>
+    <th class=cell1>聯美國小</th>
+    <td class=cell2>631</td>
+    <td class=cell3>大埤鄉聯豐路99號</td>
+    <td class=cell2>5912224</td>
+    <td class=cell2>5913026</td>
+    <td class=cell2>90936</td>
+    <td class=cell2>6341136</td>
+  </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section id="sec-632" class="content-section scroll-target">
+        <div class="section-title">虎尾鎮</div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>校名</th><th>郵區</th><th>地址</th><th>電話</th><th>傳真</th><th>網路電話</th><th>網路市話</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+    <th class=cell1>虎尾國小</th>
+    <td class=cell2>632</td>
+    <td class=cell3>虎尾鎮明正路88號</td>
+    <td class=cell2>6322026</td>
+    <td class=cell2>6338765</td>
+    <td class=cell2>95901</td>
+    <td class=cell2>6341201</td>
+  </tr>
+                    <tr>
+    <th class=cell1>立仁國小</th>
+    <td class=cell2>632</td>
+    <td class=cell3>虎尾鎮立仁街40號</td>
+    <td class=cell2>6322205</td>
+    <td class=cell2>6328875</td>
+    <td class=cell2>95902</td>
+    <td class=cell2>6341202</td>
+  </tr>
+                    <tr>
+    <th class=cell1>大屯國小</th>
+    <td class=cell2>632</td>
+    <td class=cell3>虎尾鎮東屯里147號</td>
+    <td class=cell2>6651284</td>
+    <td class=cell2>6651812</td>
+    <td class=cell2>95903</td>
+    <td class=cell2>6341203</td>
+  </tr>
+                    <tr>
+    <th class=cell1>拯民分校</th>
+    <td class=cell2>632</td>
+    <td class=cell3>虎尾鎮建國三村107號</td>
+    <td class=cell2>6326451</td>
+    <td class=cell2>6324840</td>
+    <td class=cell2>95910</td>
+    <td class=cell2>6341210</td>
+  </tr>
+                    <tr>
+    <th class=cell1>中溪國小</th>
+    <td class=cell2>632</td>
+    <td class=cell3>虎尾鎮頂溪里過溪63號</td>
+    <td class=cell2>6222385</td>
+    <td class=cell2>6221926</td>
+    <td class=cell2>95904</td>
+    <td class=cell2>6341204</td>
+  </tr>
+                    <tr>
+    <th class=cell1>光復國小</th>
+    <td class=cell2>632</td>
+    <td class=cell3>虎尾鎮墾地里光復庄11鄰39號</td>
+    <td class=cell2>6326257</td>
+    <td class=cell2>6333089</td>
+    <td class=cell2>95905</td>
+    <td class=cell2>6341205</td>
+  </tr>
+                    <tr>
+    <th class=cell1>中正國小</th>
+    <td class=cell2>632</td>
+    <td class=cell3>虎尾鎮林森路一段64號</td>
+    <td class=cell2>6322710</td>
+    <td class=cell2>6314139</td>
+    <td class=cell2>95906</td>
+    <td class=cell2>6341206</td>
+  </tr>
+                    <tr>
+    <th class=cell1>平和國小</th>
+    <td class=cell2>632</td>
+    <td class=cell3>虎尾鎮光復路22號</td>
+    <td class=cell2>6322742</td>
+    <td class=cell2>6365945</td>
+    <td class=cell2>95907</td>
+    <td class=cell2>6341207</td>
+  </tr>
+                    <tr>
+    <th class=cell1>廉使國小</th>
+    <td class=cell2>632</td>
+    <td class=cell3>虎尾鎮文科路1410號</td>
+    <td class=cell2>6322703</td>
+    <td class=cell2>6336930</td>
+    <td class=cell2>95908</td>
+    <td class=cell2>6341208</td>
+  </tr>
+                    <tr>
+    <th class=cell1>惠來國小</th>
+    <td class=cell2>632</td>
+    <td class=cell3>虎尾鎮惠來里114號</td>
+    <td class=cell2>6222344</td>
+    <td class=cell2>6223784</td>
+    <td class=cell2>95909</td>
+    <td class=cell2>6341209</td>
+  </tr>
+                    <tr>
+    <th class=cell1>安慶國小</th>
+    <td class=cell2>632</td>
+    <td class=cell3>虎尾鎮民主路36號</td>
+    <td class=cell2>6322161</td>
+    <td class=cell2>6320187</td>
+    <td class=cell2>95911</td>
+    <td class=cell2>6341211</td>
+  </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section id="sec-633" class="content-section scroll-target">
+        <div class="section-title">土庫鎮</div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>校名</th><th>郵區</th><th>地址</th><th>電話</th><th>傳真</th><th>網路電話</th><th>網路市話</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+    <th class=cell1>土庫國小</th>
+    <td class=cell2>633</td>
+    <td class=cell3>土庫鎮中正路69號</td>
+    <td class=cell2>6622524</td>
+    <td class=cell2>6626524</td>
+    <td class=cell2>95912</td>
+    <td class=cell2>6341212</td>
+  </tr>
+                    <tr>
+    <th class=cell1>越港分校</th>
+    <td class=cell2>633</td>
+    <td class=cell3>土庫鎮林森路100號</td>
+    <td class=cell2>6620283</td>
+    <td class=cell2>6629042</td>
+    <td class=cell2>95912</td>
+    <td class=cell2>6341194</td>
+  </tr>
+                    <tr>
+    <th class=cell1>馬光國小</th>
+    <td class=cell2>633</td>
+    <td class=cell3>土庫鎮馬光路174號</td>
+    <td class=cell2>6653864</td>
+    <td class=cell2>6651472</td>
+    <td class=cell2>95913</td>
+    <td class=cell2>6341213</td>
+  </tr>
+                    <tr>
+    <th class=cell1>埤腳國小</th>
+    <td class=cell2>633</td>
+    <td class=cell3>土庫鎮埤腳里埤腳56號</td>
+    <td class=cell2>6622204</td>
+    <td class=cell2>6624593</td>
+    <td class=cell2>95914</td>
+    <td class=cell2>6341214</td>
+  </tr>
+                    <tr>
+    <th class=cell1>後埔國小</th>
+    <td class=cell2>633</td>
+    <td class=cell3>土庫鎮後埔里241號</td>
+    <td class=cell2>6650483</td>
+    <td class=cell2>6655942</td>
+    <td class=cell2>95915</td>
+    <td class=cell2>6341215</td>
+  </tr>
+                    <tr>
+    <th class=cell1>秀潭國小</th>
+    <td class=cell2>633</td>
+    <td class=cell3>土庫鎮奮起里秀潭9號</td>
+    <td class=cell2>6622004</td>
+    <td class=cell2>6626159</td>
+    <td class=cell2>95916</td>
+    <td class=cell2>6341216</td>
+  </tr>
+                    <tr>
+    <th class=cell1>新庄國小</th>
+    <td class=cell2>633</td>
+    <td class=cell3>土庫鎮新庄里南新庄1號</td>
+    <td class=cell2>6652874</td>
+    <td class=cell2>6652843</td>
+    <td class=cell2>95917</td>
+    <td class=cell2>6341217</td>
+  </tr>
+                    <tr>
+    <th class=cell1>宏崙國小</th>
+    <td class=cell2>633</td>
+    <td class=cell3>土庫鎮崙內里菓圍41號</td>
+    <td class=cell2>6653824</td>
+    <td class=cell2>6655927</td>
+    <td class=cell2>95918</td>
+    <td class=cell2>6341218</td>
+  </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section id="sec-634" class="content-section scroll-target">
+        <div class="section-title">褒忠鄉</div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>校名</th><th>郵區</th><th>地址</th><th>電話</th><th>傳真</th><th>網路電話</th><th>網路市話</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+    <th class=cell1>褒忠國小</th>
+    <td class=cell2>634</td>
+    <td class=cell3>褒忠鄉埔姜村中勝路72號</td>
+    <td class=cell2>6972054</td>
+    <td class=cell2>6971936</td>
+    <td class=cell2>95919</td>
+    <td class=cell2>6341219</td>
+  </tr>
+                    <tr>
+    <th class=cell1>龍巖國小</th>
+    <td class=cell2>634</td>
+    <td class=cell3>褒忠鄉田洋村民生路28巷15號</td>
+    <td class=cell2>6972454</td>
+    <td class=cell2>6971952</td>
+    <td class=cell2>95920</td>
+    <td class=cell2>6341220</td>
+  </tr>
+                    <tr>
+    <th class=cell1>復興國小</th>
+    <td class=cell2>634</td>
+    <td class=cell3>褒忠鄉新湖村復興路71號</td>
+    <td class=cell2>6972490</td>
+    <td class=cell2>6971886</td>
+    <td class=cell2>95921</td>
+    <td class=cell2>6341221</td>
+  </tr>
+                    <tr>
+    <th class=cell1>潮厝國小</th>
+    <td class=cell2>634</td>
+    <td class=cell3>褒忠鄉潮厝村96號</td>
+    <td class=cell2>6972644</td>
+    <td class=cell2>6973761</td>
+    <td class=cell2>95922</td>
+    <td class=cell2>6341222</td>
+  </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section id="sec-635" class="content-section scroll-target">
+        <div class="section-title">東勢鄉</div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>校名</th><th>郵區</th><th>地址</th><th>電話</th><th>傳真</th><th>網路電話</th><th>網路市話</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+    <th class=cell1>東勢國小</th>
+    <td class=cell2>635</td>
+    <td class=cell3>東勢鄉東榮路29巷9號</td>
+    <td class=cell2>6991036</td>
+    <td class=cell2>6991194</td>
+    <td class=cell2>95937</td>
+    <td class=cell2>6341237</td>
+  </tr>
+                    <tr>
+    <th class=cell1>安南國小</th>
+    <td class=cell2>635</td>
+    <td class=cell3>東勢鄉安南村安南路109號</td>
+    <td class=cell2>6991454</td>
+    <td class=cell2>6997137</td>
+    <td class=cell2>95938</td>
+    <td class=cell2>6341238</td>
+  </tr>
+                    <tr>
+    <th class=cell1>明倫國小</th>
+    <td class=cell2>635</td>
+    <td class=cell3>東勢鄉月眉村中山路10號　</td>
+    <td class=cell2>6991504</td>
+    <td class=cell2>6996359</td>
+    <td class=cell2>95939</td>
+    <td class=cell2>6341239</td>
+  </tr>
+                    <tr>
+    <th class=cell1>同安國小</th>
+    <td class=cell2>635</td>
+    <td class=cell3>東勢鄉同安村67號</td>
+    <td class=cell2>6991244</td>
+    <td class=cell2>6997073</td>
+    <td class=cell2>95940</td>
+    <td class=cell2>6341240</td>
+  </tr>
+                    <tr>
+    <th class=cell1>龍潭國小</th>
+    <td class=cell2>635</td>
+    <td class=cell3>東勢鄉龍潭村信義路1號</td>
+    <td class=cell2>6991414</td>
+    <td class=cell2>6996062</td>
+    <td class=cell2>95941</td>
+    <td class=cell2>6341241</td>
+  </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section id="sec-636" class="content-section scroll-target">
+        <div class="section-title">臺西鄉</div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>校名</th><th>郵區</th><th>地址</th><th>電話</th><th>傳真</th><th>網路電話</th><th>網路市話</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+    <th class=cell1>臺西國小</th>
+    <td class=cell2>636</td>
+    <td class=cell3>台西鄉民權路9號</td>
+    <td class=cell2>6982045</td>
+    <td class=cell2>6981287</td>
+    <td class=cell2>95932</td>
+    <td class=cell2>6341232</td>
+  </tr>
+                    <tr>
+    <th class=cell1>五榔分校</th>
+    <td class=cell2>636</td>
+    <td class=cell3>台西鄉五榔村17之1號</td>
+    <td class=cell2>6982784</td>
+    <td class=cell2>6982784</td>
+    <td class=cell2>95932</td>
+    <td class=cell2>6341195</td>
+  </tr>
+                    <tr>
+    <th class=cell1>崙豐國小</th>
+    <td class=cell2>636</td>
+    <td class=cell3>台西鄉永豐村崙豐路42號</td>
+    <td class=cell2>6982142</td>
+    <td class=cell2>6983670</td>
+    <td class=cell2>95933</td>
+    <td class=cell2>6341233</td>
+  </tr>
+                    <tr>
+    <th class=cell1>泉州國小</th>
+    <td class=cell2>636</td>
+    <td class=cell3>台西鄉牛厝村舊泉州20號</td>
+    <td class=cell2>6982145</td>
+    <td class=cell2>6985145</td>
+    <td class=cell2>95934</td>
+    <td class=cell2>6341234</td>
+  </tr>
+                    <tr>
+    <th class=cell1>新興國小</th>
+    <td class=cell2>636</td>
+    <td class=cell3>台西鄉和豐村復興路53號</td>
+    <td class=cell2>6900143</td>
+    <td class=cell2>6900545</td>
+    <td class=cell2>95935</td>
+    <td class=cell2>6341235</td>
+  </tr>
+                    <tr>
+    <th class=cell1>尚德國小</th>
+    <td class=cell2>636</td>
+    <td class=cell3>台西鄉溪頂村12號</td>
+    <td class=cell2>6982074</td>
+    <td class=cell2>6983727</td>
+    <td class=cell2>95936</td>
+    <td class=cell2>6341236</td>
+  </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section id="sec-637" class="content-section scroll-target">
+        <div class="section-title">崙背鄉</div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>校名</th><th>郵區</th><th>地址</th><th>電話</th><th>傳真</th><th>網路電話</th><th>網路市話</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+    <th class=cell1>崙背國小</th>
+    <td class=cell2>637</td>
+    <td class=cell3>崙背鄉南陽村大同路154號</td>
+    <td class=cell2>6962004</td>
+    <td class=cell2>6962182</td>
+    <td class=cell2>90967</td>
+    <td class=cell2>6341167</td>
+  </tr>
+                    <tr>
+    <th class=cell1>豐榮國小</th>
+    <td class=cell2>637</td>
+    <td class=cell3>崙背鄉豐榮村21號</td>
+    <td class=cell2>6552006</td>
+    <td class=cell2>6551625</td>
+    <td class=cell2>90968</td>
+    <td class=cell2>6341168</td>
+  </tr>
+                    <tr>
+    <th class=cell1>大有國小</th>
+    <td class=cell2>637</td>
+    <td class=cell3>崙背鄉大有村1鄰14號</td>
+    <td class=cell2>6962741</td>
+    <td class=cell2>6967347</td>
+    <td class=cell2>90969</td>
+    <td class=cell2>6341169</td>
+  </tr>
+                    <tr>
+    <th class=cell1>中和國小</th>
+    <td class=cell2>637</td>
+    <td class=cell3>崙背鄉草湖村2號</td>
+    <td class=cell2>6552384</td>
+    <td class=cell2>6551593</td>
+    <td class=cell2>90970</td>
+    <td class=cell2>6341170</td>
+  </tr>
+                    <tr>
+    <th class=cell1>陽明國小</th>
+    <td class=cell2>637</td>
+    <td class=cell3>崙背鄉水尾村頂街1號</td>
+    <td class=cell2>6967670</td>
+    <td class=cell2>6962635</td>
+    <td class=cell2>90971</td>
+    <td class=cell2>6341171</td>
+  </tr>
+                    <tr>
+    <th class=cell1>東興國小</th>
+    <td class=cell2>637</td>
+    <td class=cell3>崙背鄉羅厝村東興路1號</td>
+    <td class=cell2>6962164</td>
+    <td class=cell2>6967090</td>
+    <td class=cell2>90972</td>
+    <td class=cell2>6341172</td>
+  </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section id="sec-638" class="content-section scroll-target">
+        <div class="section-title">麥寮鄉</div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>校名</th><th>郵區</th><th>地址</th><th>電話</th><th>傳真</th><th>網路電話</th><th>網路市話</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+    <th class=cell1>麥寮國小</th>
+    <td class=cell2>638</td>
+    <td class=cell3>麥寮鄉麥津村中山路260號</td>
+    <td class=cell2>6932266</td>
+    <td class=cell2>6934739</td>
+    <td class=cell2>90973</td>
+    <td class=cell2>6341173</td>
+  </tr>
+                    <tr>
+    <th class=cell1>海豐分校</th>
+    <td class=cell2>638</td>
+    <td class=cell3>麥寮鄉海豐村忠和路8號</td>
+    <td class=cell2>6931724</td>
+    <td class=cell2>6937785</td>
+    <td class=cell2>90973</td>
+    <td class=cell2>6341196</td>
+  </tr>
+                    <tr>
+    <th class=cell1>楊厝分班</th>
+    <td class=cell2>638</td>
+    <td class=cell3>麥寮鄉海豐村永和路40號</td>
+    <td class=cell2>6937813</td>
+    <td class=cell2>-</td>
+    <td class=cell2>-</td>
+    <td class=cell2>-</td>
+  </tr>
+                    <tr>
+    <th class=cell1>橋頭國小</th>
+    <td class=cell2>638</td>
+    <td class=cell3>麥寮鄉橋頭村仁德路248號</td>
+    <td class=cell2>6912358</td>
+    <td class=cell2>6913482</td>
+    <td class=cell2>90974</td>
+    <td class=cell2>6341174</td>
+  </tr>
+                    <tr>
+    <th class=cell1>許厝分校</th>
+    <td class=cell2>638</td>
+    <td class=cell3>麥寮鄉三盛村57號</td>
+    <td class=cell2>6911449</td>
+    <td class=cell2>-</td>
+    <td class=cell2>90974</td>
+    <td class=cell2>6341197</td>
+  </tr>
+                    <tr>
+    <th class=cell1>明禮國小</th>
+    <td class=cell2>638</td>
+    <td class=cell3>麥寮鄉崙後村92號</td>
+    <td class=cell2>6932244</td>
+    <td class=cell2>6934174</td>
+    <td class=cell2>90975</td>
+    <td class=cell2>6341175</td>
+  </tr>
+                    <tr>
+    <th class=cell1>興華國小</th>
+    <td class=cell2>638</td>
+    <td class=cell3>麥寮鄉興華村興化路1號</td>
+    <td class=cell2>6932574</td>
+    <td class=cell2>6938127</td>
+    <td class=cell2>90976</td>
+    <td class=cell2>6341176</td>
+  </tr>
+                    <tr>
+    <th class=cell1>豐安國小</th>
+    <td class=cell2>638</td>
+    <td class=cell3>麥寮鄉後安村227號</td>
+    <td class=cell2>6932759</td>
+    <td class=cell2>6931666</td>
+    <td class=cell2>90977</td>
+    <td class=cell2>6341177</td>
+  </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section id="sec-640" class="content-section scroll-target">
+        <div class="section-title">斗六市</div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>校名</th><th>郵區</th><th>地址</th><th>電話</th><th>傳真</th><th>網路電話</th><th>網路市話</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+    <th class=cell1>鎮西國小</th>
+    <td class=cell2>640</td>
+    <td class=cell3>斗六市西平路3號</td>
+    <td class=cell2>5322047</td>
+    <td class=cell2>5347689</td>
+    <td class=cell2>90901</td>
+    <td class=cell2>6341101</td>
+  </tr>
+                    <tr>
+    <th class=cell1>鎮東國小</th>
+    <td class=cell2>640</td>
+    <td class=cell3>斗六市文化路205號</td>
+    <td class=cell2>5322700</td>
+    <td class=cell2>5346275</td>
+    <td class=cell2>90902</td>
+    <td class=cell2>6341102</td>
+  </tr>
+                    <tr>
+    <th class=cell1>溝壩國小</th>
+    <td class=cell2>640</td>
+    <td class=cell3>斗六市溝壩里仁義路93號</td>
+    <td class=cell2>5220734</td>
+    <td class=cell2>5222962</td>
+    <td class=cell2>90903</td>
+    <td class=cell2>6341103</td>
+  </tr>
+                    <tr>
+    <th class=cell1>梅林國小</th>
+    <td class=cell2>640</td>
+    <td class=cell3>斗六市梅林里梅林路256號</td>
+    <td class=cell2>5572211</td>
+    <td class=cell2>5570450</td>
+    <td class=cell2>90904</td>
+    <td class=cell2>6341104</td>
+  </tr>
+                    <tr>
+    <th class=cell1>石榴國小</th>
+    <td class=cell2>640</td>
+    <td class=cell3>斗六市榴南里南仁路51號</td>
+    <td class=cell2>5573386</td>
+    <td class=cell2>5570562</td>
+    <td class=cell2>90905</td>
+    <td class=cell2>6341105</td>
+  </tr>
+                    <tr>
+    <th class=cell1>溪洲國小</th>
+    <td class=cell2>640</td>
+    <td class=cell3>斗六市萬年路809號</td>
+    <td class=cell2>5512485</td>
+    <td class=cell2>5518706</td>
+    <td class=cell2>90906</td>
+    <td class=cell2>6341106</td>
+  </tr>
+                    <tr>
+    <th class=cell1>保長國小</th>
+    <td class=cell2>640</td>
+    <td class=cell3>斗六市保長路155號</td>
+    <td class=cell2>5322982</td>
+    <td class=cell2>5354941</td>
+    <td class=cell2>90908</td>
+    <td class=cell2>6341108</td>
+  </tr>
+                    <tr>
+    <th class=cell1>林頭國小</th>
+    <td class=cell2>640</td>
+    <td class=cell3>斗六市榮譽路177號</td>
+    <td class=cell2>5322538</td>
+    <td class=cell2>5347866</td>
+    <td class=cell2>90907</td>
+    <td class=cell2>6341107</td>
+  </tr>
+                    <tr>
+    <th class=cell1>鎮南國小</th>
+    <td class=cell2>640</td>
+    <td class=cell3>斗六市南揚街60號</td>
+    <td class=cell2>5322524</td>
+    <td class=cell2>5339908</td>
+    <td class=cell2>90909</td>
+    <td class=cell2>6341109</td>
+  </tr>
+                    <tr>
+    <th class=cell1>公誠國小</th>
+    <td class=cell2>640</td>
+    <td class=cell3>斗六市北平路95號</td>
+    <td class=cell2>5322536</td>
+    <td class=cell2>5348486</td>
+    <td class=cell2>90910</td>
+    <td class=cell2>6341110</td>
+  </tr>
+                    <tr>
+    <th class=cell1>久安國小</th>
+    <td class=cell2>640</td>
+    <td class=cell3>斗六市久安南路120號</td>
+    <td class=cell2>5222724</td>
+    <td class=cell2>5223420</td>
+    <td class=cell2>90911</td>
+    <td class=cell2>6341111</td>
+  </tr>
+                    <tr>
+    <th class=cell1>雲林國小</th>
+    <td class=cell2>640</td>
+    <td class=cell3>斗六市莊敬路111號</td>
+    <td class=cell2>5361112</td>
+    <td class=cell2>5349500</td>
+    <td class=cell2>90912</td>
+    <td class=cell2>6341112</td>
+  </tr>
+                    <tr>
+    <th class=cell1>斗六國小</th>
+    <td class=cell2>640</td>
+    <td class=cell3>斗六市鎮東路225號</td>
+    <td class=cell2>5379600</td>
+    <td class=cell2>5379602</td>
+    <td class=cell2>90913</td>
+    <td class=cell2>6341113</td>
+  </tr>
+                    <tr>
+    <th class=cell1>維多利亞</th>
+    <td class=cell2>640</td>
+    <td class=cell3>斗六市鎮南路1110號</td>
+    <td class=cell2>5378899</td>
+    <td class=cell2>5376456</td>
+    <td class=cell2>-</td>
+    <td class=cell2>-</td>
+  </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section id="sec-643" class="content-section scroll-target">
+        <div class="section-title">林內鄉</div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>校名</th><th>郵區</th><th>地址</th><th>電話</th><th>傳真</th><th>網路電話</th><th>網路市話</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+    <th class=cell1>林內國小</th>
+    <td class=cell2>643</td>
+    <td class=cell3>林內鄉中正路111號</td>
+    <td class=cell2>5892019</td>
+    <td class=cell2>5895197</td>
+    <td class=cell2>90914</td>
+    <td class=cell2>6341114</td>
+  </tr>
+                    <tr>
+    <th class=cell1>重興國小</th>
+    <td class=cell2>643</td>
+    <td class=cell3>林內鄉重興村15號</td>
+    <td class=cell2>5892044</td>
+    <td class=cell2>5893072</td>
+    <td class=cell2>90915</td>
+    <td class=cell2>6341115</td>
+  </tr>
+                    <tr>
+    <th class=cell1>九芎國小</th>
+    <td class=cell2>643</td>
+    <td class=cell3>林內鄉九芎村文化路10號</td>
+    <td class=cell2>5892647</td>
+    <td class=cell2>5894521</td>
+    <td class=cell2>90916</td>
+    <td class=cell2>6341116</td>
+  </tr>
+                    <tr>
+    <th class=cell1>成功國小</th>
+    <td class=cell2>643</td>
+    <td class=cell3>林內鄉坪頂村1號</td>
+    <td class=cell2>5892090</td>
+    <td class=cell2>5893556</td>
+    <td class=cell2>90917</td>
+    <td class=cell2>6341117</td>
+  </tr>
+                    <tr>
+    <th class=cell1>林中國小</th>
+    <td class=cell2>643</td>
+    <td class=cell3>林內鄉林中村公園路4號</td>
+    <td class=cell2>5892064</td>
+    <td class=cell2>5893038</td>
+    <td class=cell2>90918</td>
+    <td class=cell2>6341118</td>
+  </tr>
+                    <tr>
+    <th class=cell1>民生國小</th>
+    <td class=cell2>643</td>
+    <td class=cell3>林內鄉烏塗村華興1號</td>
+    <td class=cell2>5892714</td>
+    <td class=cell2>5897015</td>
+    <td class=cell2>90919</td>
+    <td class=cell2>6341119</td>
+  </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section id="sec-646" class="content-section scroll-target">
+        <div class="section-title">古坑鄉</div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>校名</th><th>郵區</th><th>地址</th><th>電話</th><th>傳真</th><th>網路電話</th><th>網路市話</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+    <th class=cell1>古坑國小</th>
+    <td class=cell2>646</td>
+    <td class=cell3>古坑鄉朝陽路3號</td>
+    <td class=cell2>5821024</td>
+    <td class=cell2>5823363</td>
+    <td class=cell2>90937</td>
+    <td class=cell2>6341137</td>
+  </tr>
+                    <tr>
+    <th class=cell1>東和國小</th>
+    <td class=cell2>646</td>
+    <td class=cell3>古坑鄉東和村文化路120號</td>
+    <td class=cell2>5263153</td>
+    <td class=cell2>5263427</td>
+    <td class=cell2>90938</td>
+    <td class=cell2>6341138</td>
+  </tr>
+                    <tr>
+    <th class=cell1>永光國小</th>
+    <td class=cell2>646</td>
+    <td class=cell3>古坑鄉永光村文昌路84號</td>
+    <td class=cell2>5821057</td>
+    <td class=cell2>5821670</td>
+    <td class=cell2>90939</td>
+    <td class=cell2>6341139</td>
+  </tr>
+                    <tr>
+    <th class=cell1>華山國小</th>
+    <td class=cell2>646</td>
+    <td class=cell3>古坑鄉華山村41號</td>
+    <td class=cell2>5901243</td>
+    <td class=cell2>5900003</td>
+    <td class=cell2>90940</td>
+    <td class=cell2>6341140</td>
+  </tr>
+                    <tr>
+    <th class=cell1>棋山國小</th>
+    <td class=cell2>646</td>
+    <td class=cell3>古坑鄉棋盤村棋山路49號</td>
+    <td class=cell2>5263673</td>
+    <td class=cell2>5263687</td>
+    <td class=cell2>90941</td>
+    <td class=cell2>6341141</td>
+  </tr>
+                    <tr>
+    <th class=cell1>桂林國小</th>
+    <td class=cell2>646</td>
+    <td class=cell3>古坑鄉桂林村95號</td>
+    <td class=cell2>5901048</td>
+    <td class=cell2>5900135</td>
+    <td class=cell2>90942</td>
+    <td class=cell2>6341142</td>
+  </tr>
+                    <tr>
+    <th class=cell1>樟湖國小</th>
+    <td class=cell2>646</td>
+    <td class=cell3>古坑鄉樟湖村28號</td>
+    <td class=cell2>5811044</td>
+    <td class=cell2>5811242</td>
+    <td class=cell2>90943</td>
+    <td class=cell2>6341143</td>
+  </tr>
+                    <tr>
+    <th class=cell1>草嶺國小</th>
+    <td class=cell2>646</td>
+    <td class=cell3>古坑鄉草嶺村83號</td>
+    <td class=cell2>5831010</td>
+    <td class=cell2>5831010</td>
+    <td class=cell2>90946</td>
+    <td class=cell2>6341146</td>
+  </tr>
+                    <tr>
+    <th class=cell1>華南國小</th>
+    <td class=cell2>646</td>
+    <td class=cell3>古坑鄉華南村28號</td>
+    <td class=cell2>5901529</td>
+    <td class=cell2>5900018</td>
+    <td class=cell2>90945</td>
+    <td class=cell2>6341145</td>
+  </tr>
+                    <tr>
+    <th class=cell1>興昌國小</th>
+    <td class=cell2>646</td>
+    <td class=cell3>古坑鄉崁腳村南昌6號</td>
+    <td class=cell2>5821060</td>
+    <td class=cell2>5826448</td>
+    <td class=cell2>90947</td>
+    <td class=cell2>6341147</td>
+  </tr>
+                    <tr>
+    <th class=cell1>山峰國小</th>
+    <td class=cell2>646</td>
+    <td class=cell3>古坑鄉荷苞村山峰17號</td>
+    <td class=cell2>5822075</td>
+    <td class=cell2>5824573</td>
+    <td class=cell2>90948</td>
+    <td class=cell2>6341148</td>
+  </tr>
+                    <tr>
+    <th class=cell1>水碓國小</th>
+    <td class=cell2>646</td>
+    <td class=cell3>古坑鄉水碓村97號</td>
+    <td class=cell2>5821049</td>
+    <td class=cell2>5826781</td>
+    <td class=cell2>90949</td>
+    <td class=cell2>6341149</td>
+  </tr>
+                    <tr>
+    <th class=cell1>新光國小</th>
+    <td class=cell2>646</td>
+    <td class=cell3>古坑鄉新庄村1-1號</td>
+    <td class=cell2>5260572</td>
+    <td class=cell2>5263973</td>
+    <td class=cell2>90950</td>
+    <td class=cell2>6341150</td>
+  </tr>
+                    <tr>
+    <th class=cell1>福智國小</th>
+    <td class=cell2>646</td>
+    <td class=cell3>古坑鄉麻園村平和21號　</td>
+    <td class=cell2>5828222</td>
+    <td class=cell2>5829038</td>
+    <td class=cell2>-</td>
+    <td class=cell2>-</td>
+  </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section id="sec-647" class="content-section scroll-target">
+        <div class="section-title">莿桐鄉</div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>校名</th><th>郵區</th><th>地址</th><th>電話</th><th>傳真</th><th>網路電話</th><th>網路市話</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+    <th class=cell1>莿桐國小</th>
+    <td class=cell2>647</td>
+    <td class=cell3>莿桐鄉中正路147號</td>
+    <td class=cell2>5842065</td>
+    <td class=cell2>5840860</td>
+    <td class=cell2>90920</td>
+    <td class=cell2>6341120</td>
+  </tr>
+                    <tr>
+    <th class=cell1>饒平國小</th>
+    <td class=cell2>647</td>
+    <td class=cell3>莿桐鄉饒平村饒平路1號</td>
+    <td class=cell2>5842071</td>
+    <td class=cell2>5840053</td>
+    <td class=cell2>90921</td>
+    <td class=cell2>6341121</td>
+  </tr>
+                    <tr>
+    <th class=cell1>大美國小</th>
+    <td class=cell2>647</td>
+    <td class=cell3>莿桐鄉大美23號</td>
+    <td class=cell2>5842504</td>
+    <td class=cell2>5842504</td>
+    <td class=cell2>90922</td>
+    <td class=cell2>6341122</td>
+  </tr>
+                    <tr>
+    <th class=cell1>六合國小</th>
+    <td class=cell2>647</td>
+    <td class=cell3>莿桐鄉六合村東興路63號</td>
+    <td class=cell2>5712810</td>
+    <td class=cell2>5710818</td>
+    <td class=cell2>90923</td>
+    <td class=cell2>6341123</td>
+  </tr>
+                    <tr>
+    <th class=cell1>僑和國小</th>
+    <td class=cell2>647</td>
+    <td class=cell3>莿桐鄉興桐村新莊1號</td>
+    <td class=cell2>5842230</td>
+    <td class=cell2>5840826</td>
+    <td class=cell2>90924</td>
+    <td class=cell2>6341124</td>
+  </tr>
+                    <tr>
+    <th class=cell1>育仁國小</th>
+    <td class=cell2>647</td>
+    <td class=cell3>莿桐鄉甘厝村甘厝75號　</td>
+    <td class=cell2>5842525</td>
+    <td class=cell2>5840811</td>
+    <td class=cell2>90925</td>
+    <td class=cell2>6341125</td>
+  </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section id="sec-648" class="content-section scroll-target">
+        <div class="section-title">西螺鎮</div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>校名</th><th>郵區</th><th>地址</th><th>電話</th><th>傳真</th><th>網路電話</th><th>網路市話</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+    <th class=cell1>文昌國小</th>
+    <td class=cell2>648</td>
+    <td class=cell3>西螺鎮延平路504號　</td>
+    <td class=cell2>5862013</td>
+    <td class=cell2>5860000</td>
+    <td class=cell2>90951</td>
+    <td class=cell2>6341151</td>
+  </tr>
+                    <tr>
+    <th class=cell1>中山國小</th>
+    <td class=cell2>648</td>
+    <td class=cell3>西螺鎮新街路2號　</td>
+    <td class=cell2>5862039</td>
+    <td class=cell2>5872541</td>
+    <td class=cell2>90952</td>
+    <td class=cell2>6341152</td>
+  </tr>
+                    <tr>
+    <th class=cell1>廣興國小</th>
+    <td class=cell2>648</td>
+    <td class=cell3>西螺鎮廣興里59號</td>
+    <td class=cell2>5863094</td>
+    <td class=cell2>5876290</td>
+    <td class=cell2>90953</td>
+    <td class=cell2>6341153</td>
+  </tr>
+                    <tr>
+    <th class=cell1>安定國小</th>
+    <td class=cell2>648</td>
+    <td class=cell3>西螺鎮埔心路210號</td>
+    <td class=cell2>5863154</td>
+    <td class=cell2>5867443</td>
+    <td class=cell2>90954</td>
+    <td class=cell2>6341154</td>
+  </tr>
+                    <tr>
+    <th class=cell1>吳厝國小</th>
+    <td class=cell2>648</td>
+    <td class=cell3>西螺鎮九隆里44號</td>
+    <td class=cell2>5863074</td>
+    <td class=cell2>5867074</td>
+    <td class=cell2>90955</td>
+    <td class=cell2>6341155</td>
+  </tr>
+                    <tr>
+    <th class=cell1>大新國小</th>
+    <td class=cell2>648</td>
+    <td class=cell3>西螺鎮大新里215號</td>
+    <td class=cell2>5862974</td>
+    <td class=cell2>5876150</td>
+    <td class=cell2>90956</td>
+    <td class=cell2>6341156</td>
+  </tr>
+                    <tr>
+    <th class=cell1>文賢國小</th>
+    <td class=cell2>648</td>
+    <td class=cell3>西螺鎮公館里1號</td>
+    <td class=cell2>6341157</td>
+    <td class=cell2>5876797</td>
+    <td class=cell2>90957</td>
+    <td class=cell2>6341157</td>
+  </tr>
+                    <tr>
+    <th class=cell1>文興國小</th>
+    <td class=cell2>648</td>
+    <td class=cell3>西螺鎮新豐里新社路257號</td>
+    <td class=cell2>5863174</td>
+    <td class=cell2>5866884</td>
+    <td class=cell2>90958</td>
+    <td class=cell2>6341158</td>
+  </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section id="sec-649" class="content-section scroll-target">
+        <div class="section-title">二崙鄉</div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>校名</th><th>郵區</th><th>地址</th><th>電話</th><th>傳真</th><th>網路電話</th><th>網路市話</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+    <th class=cell1>二崙國小</th>
+    <td class=cell2>649</td>
+    <td class=cell3>二崙鄉崙東村中興路36號</td>
+    <td class=cell2>5982241</td>
+    <td class=cell2>5980241</td>
+    <td class=cell2>90959</td>
+    <td class=cell2>6341159</td>
+  </tr>
+                    <tr>
+    <th class=cell1>三和國小</th>
+    <td class=cell2>649</td>
+    <td class=cell3>二崙鄉三和村17號</td>
+    <td class=cell2>5982795　</td>
+    <td class=cell2>5983795　</td>
+    <td class=cell2>90960</td>
+    <td class=cell2>6341160</td>
+  </tr>
+                    <tr>
+    <th class=cell1>油車國小</th>
+    <td class=cell2>649</td>
+    <td class=cell3>二崙鄉港後村港後路60號</td>
+    <td class=cell2>5982600</td>
+    <td class=cell2>5989300</td>
+    <td class=cell2>90961</td>
+    <td class=cell2>6341161</td>
+  </tr>
+                    <tr>
+    <th class=cell1>大同國小</th>
+    <td class=cell2>649</td>
+    <td class=cell3>二崙鄉大同村大同路5號</td>
+    <td class=cell2>5982996</td>
+    <td class=cell2>5985732</td>
+    <td class=cell2>90962</td>
+    <td class=cell2>6341162</td>
+  </tr>
+                    <tr>
+    <th class=cell1>永定國小</th>
+    <td class=cell2>649</td>
+    <td class=cell3>二崙鄉永定路238號</td>
+    <td class=cell2>5982796</td>
+    <td class=cell2>5989776</td>
+    <td class=cell2>90963</td>
+    <td class=cell2>6341163</td>
+  </tr>
+                    <tr>
+    <th class=cell1>義賢國小</th>
+    <td class=cell2>649</td>
+    <td class=cell3>二崙鄉楊賢村5鄰1號</td>
+    <td class=cell2>5982797</td>
+    <td class=cell2>5983233</td>
+    <td class=cell2>90964</td>
+    <td class=cell2>6341164</td>
+  </tr>
+                    <tr>
+    <th class=cell1>旭光國小</th>
+    <td class=cell2>649</td>
+    <td class=cell3>二崙鄉大庄村酒姑路54號</td>
+    <td class=cell2>5982601</td>
+    <td class=cell2>5989196</td>
+    <td class=cell2>90965</td>
+    <td class=cell2>6341165</td>
+  </tr>
+                    <tr>
+    <th class=cell1>來惠國小</th>
+    <td class=cell2>649</td>
+    <td class=cell3>二崙鄉來惠村惠來路12號</td>
+    <td class=cell2>5982995</td>
+    <td class=cell2>5986932</td>
+    <td class=cell2>90966</td>
+    <td class=cell2>6341166</td>
+  </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section id="sec-651" class="content-section scroll-target">
+        <div class="section-title">北港鎮</div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>校名</th><th>郵區</th><th>地址</th><th>電話</th><th>傳真</th><th>網路電話</th><th>網路市話</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+    <th class=cell1>南陽國小</th>
+    <td class=cell2>651</td>
+    <td class=cell3>北港鎮光明路59號</td>
+    <td class=cell2>7832106</td>
+    <td class=cell2>7831765</td>
+    <td class=cell2>95954</td>
+    <td class=cell2>6341254</td>
+  </tr>
+                    <tr>
+    <th class=cell1>北辰國小</th>
+    <td class=cell2>651</td>
+    <td class=cell3>北港鎮成功路30號</td>
+    <td class=cell2>7832153</td>
+    <td class=cell2>7824736</td>
+    <td class=cell2>95955</td>
+    <td class=cell2>6341255</td>
+  </tr>
+                    <tr>
+    <th class=cell1>好收國小</th>
+    <td class=cell2>651</td>
+    <td class=cell3>北港鎮好收里20號</td>
+    <td class=cell2>7922254</td>
+    <td class=cell2>7923324</td>
+    <td class=cell2>95956</td>
+    <td class=cell2>6341256</td>
+  </tr>
+                    <tr>
+    <th class=cell1>育英國小</th>
+    <td class=cell2>651</td>
+    <td class=cell3>北港鎮番溝里84號</td>
+    <td class=cell2>7921224</td>
+    <td class=cell2>7920828</td>
+    <td class=cell2>95957</td>
+    <td class=cell2>6341257</td>
+  </tr>
+                    <tr>
+    <th class=cell1>東榮國小</th>
+    <td class=cell2>651</td>
+    <td class=cell3>北港鎮溝皂里20號　</td>
+    <td class=cell2>7921304</td>
+    <td class=cell2>7923073</td>
+    <td class=cell2>95958</td>
+    <td class=cell2>6341258</td>
+  </tr>
+                    <tr>
+    <th class=cell1>朝陽國小</th>
+    <td class=cell2>651</td>
+    <td class=cell3>北港鎮扶朝里76號</td>
+    <td class=cell2>7832904</td>
+    <td class=cell2>7827328</td>
+    <td class=cell2>95959</td>
+    <td class=cell2>6341259</td>
+  </tr>
+                    <tr>
+    <th class=cell1>辰光國小</th>
+    <td class=cell2>651</td>
+    <td class=cell3>北港鎮新厝里49號</td>
+    <td class=cell2>7834320</td>
+    <td class=cell2>7732356</td>
+    <td class=cell2>95960</td>
+    <td class=cell2>6341260</td>
+  </tr>
+                    <tr>
+    <th class=cell1>僑美國小</th>
+    <td class=cell2>651</td>
+    <td class=cell3>北港鎮華勝路655號</td>
+    <td class=cell2>7832307</td>
+    <td class=cell2>7825431</td>
+    <td class=cell2>95961</td>
+    <td class=cell2>6341261</td>
+  </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section id="sec-652" class="content-section scroll-target">
+        <div class="section-title">水林鄉</div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>校名</th><th>郵區</th><th>地址</th><th>電話</th><th>傳真</th><th>網路電話</th><th>網路市話</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+    <th class=cell1>水燦林國小</th>
+    <td class=cell2>652</td>
+    <td class=cell3>水林鄉水北村水林路6號</td>
+    <td class=cell2>7852845</td>
+    <td class=cell2>7854973</td>
+    <td class=cell2>95972</td>
+    <td class=cell2>6341272</td>
+  </tr>
+                    <tr>
+    <th class=cell1>蔦松國小</th>
+    <td class=cell2>652</td>
+    <td class=cell3>水林鄉松中村蔦松路213號</td>
+    <td class=cell2>7841230</td>
+    <td class=cell2>7840167</td>
+    <td class=cell2>95973</td>
+    <td class=cell2>6341273</td>
+  </tr>
+                    <tr>
+    <th class=cell1>尖山國小</th>
+    <td class=cell2>652</td>
+    <td class=cell3>水林鄉大山村6號</td>
+    <td class=cell2>7851756</td>
+    <td class=cell2>7851480</td>
+    <td class=cell2>95974</td>
+    <td class=cell2>6341274</td>
+  </tr>
+                    <tr>
+    <th class=cell1>宏仁國小</th>
+    <td class=cell2>652</td>
+    <td class=cell3>水林鄉灣東村宏仁路30號</td>
+    <td class=cell2>7857080</td>
+    <td class=cell2>7854399</td>
+    <td class=cell2>95975</td>
+    <td class=cell2>6341275</td>
+  </tr>
+                    <tr>
+    <th class=cell1>文正國小</th>
+    <td class=cell2>652</td>
+    <td class=cell3>水林鄉山腳村蕃東路1號</td>
+    <td class=cell2>7841051</td>
+    <td class=cell2>7840385</td>
+    <td class=cell2>95976</td>
+    <td class=cell2>6341276</td>
+  </tr>
+                    <tr>
+    <th class=cell1>誠正國小</th>
+    <td class=cell2>652</td>
+    <td class=cell3>水林鄉蘇秦村蘇秦路1號</td>
+    <td class=cell2>7921114</td>
+    <td class=cell2>7920114</td>
+    <td class=cell2>95977</td>
+    <td class=cell2>6341277</td>
+  </tr>
+                    <tr>
+    <th class=cell1>中興國小</th>
+    <td class=cell2>652</td>
+    <td class=cell3>水林鄉瓊埔村148號</td>
+    <td class=cell2>7841064</td>
+    <td class=cell2>7840415</td>
+    <td class=cell2>95978</td>
+    <td class=cell2>6341278</td>
+  </tr>
+                    <tr>
+    <th class=cell1>和安國小</th>
+    <td class=cell2>652</td>
+    <td class=cell3>水林鄉溪墘村41號</td>
+    <td class=cell2>7853932</td>
+    <td class=cell2>7857032</td>
+    <td class=cell2>95979</td>
+    <td class=cell2>6341279</td>
+  </tr>
+                    <tr>
+    <th class=cell1>大興國小</th>
+    <td class=cell2>652</td>
+    <td class=cell3>水林鄉大溝村1號</td>
+    <td class=cell2>7851300</td>
+    <td class=cell2>7857122</td>
+    <td class=cell2>95981</td>
+    <td class=cell2>6341281</td>
+  </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section id="sec-653" class="content-section scroll-target">
+        <div class="section-title">口湖鄉</div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>校名</th><th>郵區</th><th>地址</th><th>電話</th><th>傳真</th><th>網路電話</th><th>網路市話</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+    <th class=cell1>口湖國小</th>
+    <td class=cell2>653</td>
+    <td class=cell3>口湖鄉湖東村文明路103巷46號</td>
+    <td class=cell2>7892154</td>
+    <td class=cell2>7892969</td>
+    <td class=cell2>95962</td>
+    <td class=cell2>6341262</td>
+  </tr>
+                    <tr>
+    <th class=cell1>青蚶分校</th>
+    <td class=cell2>653</td>
+    <td class=cell3>口湖鄉青蚶村93號</td>
+    <td class=cell2>7892804</td>
+    <td class=cell2>7892804</td>
+    <td class=cell2>95962</td>
+    <td class=cell2>6341198</td>
+  </tr>
+                    <tr>
+    <th class=cell1>文光國小</th>
+    <td class=cell2>653</td>
+    <td class=cell3>口湖鄉梧南村文光路100號</td>
+    <td class=cell2>7907189</td>
+    <td class=cell2>7905145</td>
+    <td class=cell2>95963</td>
+    <td class=cell2>6341263</td>
+  </tr>
+                    <tr>
+    <th class=cell1>湖口分校</th>
+    <td class=cell2>653</td>
+    <td class=cell3>口湖鄉湖口村30號</td>
+    <td class=cell2>7906930</td>
+    <td class=cell2>7905018</td>
+    <td class=cell2>95963</td>
+    <td class=cell2>6341199</td>
+  </tr>
+                    <tr>
+    <th class=cell1>金湖國小</th>
+    <td class=cell2>653</td>
+    <td class=cell3>口湖鄉港東村民主路15號</td>
+    <td class=cell2>7971188</td>
+    <td class=cell2>7972226</td>
+    <td class=cell2>95964</td>
+    <td class=cell2>6341264</td>
+  </tr>
+                    <tr>
+    <th class=cell1>下崙國小</th>
+    <td class=cell2>653</td>
+    <td class=cell3>口湖鄉崙中村福安路200號</td>
+    <td class=cell2>7991184</td>
+    <td class=cell2>7992080</td>
+    <td class=cell2>95965</td>
+    <td class=cell2>6341265</td>
+  </tr>
+                    <tr>
+    <th class=cell1>興南國小</th>
+    <td class=cell2>653</td>
+    <td class=cell3>口湖鄉埔南村9號</td>
+    <td class=cell2>7892190</td>
+    <td class=cell2>7894722</td>
+    <td class=cell2>95966</td>
+    <td class=cell2>6341266</td>
+  </tr>
+                    <tr>
+    <th class=cell1>崇文國小</th>
+    <td class=cell2>653</td>
+    <td class=cell3>口湖鄉蚵寮村崇文路二段285號</td>
+    <td class=cell2>7892186</td>
+    <td class=cell2>7893965</td>
+    <td class=cell2>95967</td>
+    <td class=cell2>6341267</td>
+  </tr>
+                    <tr>
+    <th class=cell1>成龍國小</th>
+    <td class=cell2>653</td>
+    <td class=cell3>口湖鄉成龍村201號</td>
+    <td class=cell2>7971187</td>
+    <td class=cell2>7972852</td>
+    <td class=cell2>95968</td>
+    <td class=cell2>6341268</td>
+  </tr>
+                    <tr>
+    <th class=cell1>台興國小</th>
+    <td class=cell2>653</td>
+    <td class=cell3>口湖鄉台子村台興路130號</td>
+    <td class=cell2>7971494</td>
+    <td class=cell2>7972951</td>
+    <td class=cell2>95969</td>
+    <td class=cell2>6341269</td>
+  </tr>
+                    <tr>
+    <th class=cell1>頂湖國小</th>
+    <td class=cell2>653</td>
+    <td class=cell3>口湖鄉頂湖村121號</td>
+    <td class=cell2>7892185</td>
+    <td class=cell2>7894751</td>
+    <td class=cell2>95970</td>
+    <td class=cell2>6341270</td>
+  </tr>
+                    <tr>
+    <th class=cell1>過港國小</th>
+    <td class=cell2>653</td>
+    <td class=cell3>口湖鄉過港村119號</td>
+    <td class=cell2>7892183</td>
+    <td class=cell2>7893962</td>
+    <td class=cell2>95971</td>
+    <td class=cell2>6341271</td>
+  </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section id="sec-654" class="content-section scroll-target">
+        <div class="section-title">四湖鄉</div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>校名</th><th>郵區</th><th>地址</th><th>電話</th><th>傳真</th><th>網路電話</th><th>網路市話</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+    <th class=cell1>四湖國小</th>
+    <td class=cell2>654</td>
+    <td class=cell3>四湖鄉中山東路37號</td>
+    <td class=cell2>7872100</td>
+    <td class=cell2>7874980</td>
+    <td class=cell2>95942</td>
+    <td class=cell2>6341242</td>
+  </tr>
+                    <tr>
+    <th class=cell1>東光國小</th>
+    <td class=cell2>654</td>
+    <td class=cell3>四湖鄉溪底村成功路11號</td>
+    <td class=cell2>7871728</td>
+    <td class=cell2>7875831</td>
+    <td class=cell2>95945</td>
+    <td class=cell2>6341245</td>
+  </tr>
+                    <tr>
+    <th class=cell1>飛沙國小</th>
+    <td class=cell2>654</td>
+    <td class=cell3>四湖鄉飛沙村大同路26號</td>
+    <td class=cell2>7723688</td>
+    <td class=cell2>7720937</td>
+    <td class=cell2>95943</td>
+    <td class=cell2>6341243</td>
+  </tr>
+                    <tr>
+    <th class=cell1>林厝國小</th>
+    <td class=cell2>654</td>
+    <td class=cell3>四湖鄉林東村中華路1號</td>
+    <td class=cell2>7721320</td>
+    <td class=cell2>7720640</td>
+    <td class=cell2>95946</td>
+    <td class=cell2>6341246</td>
+  </tr>
+                    <tr>
+    <th class=cell1>三崙國小</th>
+    <td class=cell2>654</td>
+    <td class=cell3>四湖鄉崙南村延平南路18號</td>
+    <td class=cell2>7721044</td>
+    <td class=cell2>7721492</td>
+    <td class=cell2>95947</td>
+    <td class=cell2>6341247</td>
+  </tr>
+                    <tr>
+    <th class=cell1>建華國小</th>
+    <td class=cell2>654</td>
+    <td class=cell3>四湖鄉羊調村建華路35號</td>
+    <td class=cell2>7875635</td>
+    <td class=cell2>7873280</td>
+    <td class=cell2>95952</td>
+    <td class=cell2>6341252</td>
+  </tr>
+                    <tr>
+    <th class=cell1>南光國小</th>
+    <td class=cell2>654</td>
+    <td class=cell3>四湖鄉蔡厝村90號</td>
+    <td class=cell2>7872434</td>
+    <td class=cell2>7874651</td>
+    <td class=cell2>95949</td>
+    <td class=cell2>6341249</td>
+  </tr>
+                    <tr>
+    <th class=cell1>鹿場國小</th>
+    <td class=cell2>654</td>
+    <td class=cell3>四湖鄉鹿場村中鹿場路27號</td>
+    <td class=cell2>7872454</td>
+    <td class=cell2>7871165</td>
+    <td class=cell2>95950</td>
+    <td class=cell2>6341250</td>
+  </tr>
+                    <tr>
+    <th class=cell1>明德國小</th>
+    <td class=cell2>654</td>
+    <td class=cell3>四湖鄉溪尾村中溪尾30號</td>
+    <td class=cell2>7872450</td>
+    <td class=cell2>7872499</td>
+    <td class=cell2>95951</td>
+    <td class=cell2>6341251</td>
+  </tr>
+                    <tr>
+    <th class=cell1>建陽國小</th>
+    <td class=cell2>654</td>
+    <td class=cell3>四湖鄉箔子村333號</td>
+    <td class=cell2>7721851</td>
+    <td class=cell2>7720247</td>
+    <td class=cell2>95948</td>
+    <td class=cell2>6341248</td>
+  </tr>
+                    <tr>
+    <th class=cell1>內湖國小</th>
+    <td class=cell2>654</td>
+    <td class=cell3>四湖鄉內湖村三塊厝123號　</td>
+    <td class=cell2>7872054</td>
+    <td class=cell2>7874981</td>
+    <td class=cell2>95953</td>
+    <td class=cell2>6341253</td>
+  </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section id="sec-655" class="content-section scroll-target">
+        <div class="section-title">元長鄉</div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>校名</th><th>郵區</th><th>地址</th><th>電話</th><th>傳真</th><th>網路電話</th><th>網路市話</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+    <th class=cell1>元長國小</th>
+    <td class=cell2>655</td>
+    <td class=cell3>元長鄉元西路76號</td>
+    <td class=cell2>7882017</td>
+    <td class=cell2>7882540</td>
+    <td class=cell2>95923</td>
+    <td class=cell2>6341223</td>
+  </tr>
+                    <tr>
+    <th class=cell1>新生國小</th>
+    <td class=cell2>655</td>
+    <td class=cell3>元長鄉瓦磘村新生路11號</td>
+    <td class=cell2>7983093</td>
+    <td class=cell2>7981714</td>
+    <td class=cell2>95924</td>
+    <td class=cell2>6341224</td>
+  </tr>
+                    <tr>
+    <th class=cell1>客厝國小</th>
+    <td class=cell2>655</td>
+    <td class=cell3>元長鄉頂寮村11號</td>
+    <td class=cell2>7882718</td>
+    <td class=cell2>7885507</td>
+    <td class=cell2>95925</td>
+    <td class=cell2>6341225</td>
+  </tr>
+                    <tr>
+    <th class=cell1>山內國小</th>
+    <td class=cell2>655</td>
+    <td class=cell3>元長鄉山內村南山路3號</td>
+    <td class=cell2>7882152</td>
+    <td class=cell2>7883099</td>
+    <td class=cell2>95926</td>
+    <td class=cell2>6341226</td>
+  </tr>
+                    <tr>
+    <th class=cell1>仁德國小</th>
+    <td class=cell2>655</td>
+    <td class=cell3>元長鄉內寮村內寮6號</td>
+    <td class=cell2>7861976</td>
+    <td class=cell2>7861876</td>
+    <td class=cell2>95927</td>
+    <td class=cell2>6341227</td>
+  </tr>
+                    <tr>
+    <th class=cell1>忠孝國小</th>
+    <td class=cell2>655</td>
+    <td class=cell3>元長鄉龍岩村148號</td>
+    <td class=cell2>7882096</td>
+    <td class=cell2>7885913</td>
+    <td class=cell2>95928</td>
+    <td class=cell2>6341228</td>
+  </tr>
+                    <tr>
+    <th class=cell1>仁愛國小</th>
+    <td class=cell2>655</td>
+    <td class=cell3>元長鄉潭西村潭內1號</td>
+    <td class=cell2>7882710</td>
+    <td class=cell2>7881210</td>
+    <td class=cell2>95929</td>
+    <td class=cell2>6341229</td>
+  </tr>
+                    <tr>
+    <th class=cell1>信義國小</th>
+    <td class=cell2>655</td>
+    <td class=cell3>元長鄉五塊村北水路8號</td>
+    <td class=cell2>7882712</td>
+    <td class=cell2>7880712</td>
+    <td class=cell2>95930</td>
+    <td class=cell2>6341230</td>
+  </tr>
+                    <tr>
+    <th class=cell1>和平國小</th>
+    <td class=cell2>655</td>
+    <td class=cell3>元長鄉子茂村4號</td>
+    <td class=cell2>7882684</td>
+    <td class=cell2>7887493</td>
+    <td class=cell2>95931</td>
+    <td class=cell2>6341231</td>
+  </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section id="sec-junior" class="content-section scroll-target">
+        <div class="section-title">縣立國中</div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>校名</th><th>郵區</th><th>地址</th><th>電話</th><th>傳真</th><th>網路電話</th><th>網路市話</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+    <th class=cell1>斗六國中</th>
+    <td class=cell2>640</td>
+    <td class=cell3>斗六市育英北街69號</td>
+    <td class=cell2>5323296</td>
+    <td class=cell2>5329217</td>
+    <td class=cell2>90978</td>
+    <td class=cell2>6341178</td>
+  </tr>
+                    <tr>
+    <th class=cell1>雲林國中</th>
+    <td class=cell2>640</td>
+    <td class=cell3>斗六市明德路599號</td>
+    <td class=cell2>5326071</td>
+    <td class=cell2>5336893</td>
+    <td class=cell2>90979</td>
+    <td class=cell2>6341179</td>
+  </tr>
+                    <tr>
+    <th class=cell1>石榴國中</th>
+    <td class=cell2>640</td>
+    <td class=cell3>斗六市光復路66號</td>
+    <td class=cell2>5571713</td>
+    <td class=cell2>5572965</td>
+    <td class=cell2>90980</td>
+    <td class=cell2>6341180</td>
+  </tr>
+                    <tr>
+    <th class=cell1>林內國中</th>
+    <td class=cell2>643</td>
+    <td class=cell3>林內鄉烏麻村長源200號</td>
+    <td class=cell2>5899306</td>
+    <td class=cell2>5899460</td>
+    <td class=cell2>90981</td>
+    <td class=cell2>6341181</td>
+  </tr>
+                    <tr>
+    <th class=cell1>莿桐國中</th>
+    <td class=cell2>647</td>
+    <td class=cell3>莿桐鄉莿桐村農校路1號</td>
+    <td class=cell2>5842014</td>
+    <td class=cell2>5840060</td>
+    <td class=cell2>90982</td>
+    <td class=cell2>6341182</td>
+  </tr>
+                    <tr>
+    <th class=cell1>東明國中</th>
+    <td class=cell2>630</td>
+    <td class=cell3>斗南鎮中興路111號</td>
+    <td class=cell2>5972474</td>
+    <td class=cell2>5952207</td>
+    <td class=cell2>90983</td>
+    <td class=cell2>6341183</td>
+  </tr>
+                    <tr>
+    <th class=cell1>大埤國中</th>
+    <td class=cell2>631</td>
+    <td class=cell3>大埤鄉南和村民權路80號</td>
+    <td class=cell2>5912051</td>
+    <td class=cell2>5917649</td>
+    <td class=cell2>90984</td>
+    <td class=cell2>6341184</td>
+  </tr>
+                    <tr>
+    <th class=cell1>古坑國中</th>
+    <td class=cell2>646</td>
+    <td class=cell3>古坑鄉朝陽路2號</td>
+    <td class=cell2>5821004</td>
+    <td class=cell2>5824482</td>
+    <td class=cell2>90985</td>
+    <td class=cell2>6341185</td>
+  </tr>
+                    <tr>
+    <th class=cell1>東和國中</th>
+    <td class=cell2>646</td>
+    <td class=cell3>古坑鄉東和村文化路130號</td>
+    <td class=cell2>5262697</td>
+    <td class=cell2>5263431</td>
+    <td class=cell2>90986</td>
+    <td class=cell2>6341186</td>
+  </tr>
+                    <tr>
+    <th class=cell1>西螺國中</th>
+    <td class=cell2>648</td>
+    <td class=cell3>西螺鎮興農西路217號</td>
+    <td class=cell2>5874752</td>
+    <td class=cell2>5876521</td>
+    <td class=cell2>90987</td>
+    <td class=cell2>6341187</td>
+  </tr>
+                    <tr>
+    <th class=cell1>二崙國中</th>
+    <td class=cell2>649</td>
+    <td class=cell3>二崙鄉中正路88號</td>
+    <td class=cell2>5982020</td>
+    <td class=cell2>5984352</td>
+    <td class=cell2>90988</td>
+    <td class=cell2>6341188</td>
+  </tr>
+                    <tr>
+    <th class=cell1>崙背國中</th>
+    <td class=cell2>637</td>
+    <td class=cell3>崙背鄉大成路91號</td>
+    <td class=cell2>6962013</td>
+    <td class=cell2>6967585</td>
+    <td class=cell2>90989</td>
+    <td class=cell2>6341189</td>
+  </tr>
+                    <tr>
+    <th class=cell1>虎尾國中</th>
+    <td class=cell2>632</td>
+    <td class=cell3>虎尾鎮中溪里中興路153號</td>
+    <td class=cell2>6220057</td>
+    <td class=cell2>6220061</td>
+    <td class=cell2>95982</td>
+    <td class=cell2>6341282</td>
+  </tr>
+                    <tr>
+    <th class=cell1>崇德國中</th>
+    <td class=cell2>632</td>
+    <td class=cell3>虎尾鎮文科路1530號</td>
+    <td class=cell2>6322806</td>
+    <td class=cell2>6335617</td>
+    <td class=cell2>95983</td>
+    <td class=cell2>6341283</td>
+  </tr>
+                    <tr>
+    <th class=cell1>東仁國中</th>
+    <td class=cell2>632</td>
+    <td class=cell3>虎尾鎮東仁里東明路85號</td>
+    <td class=cell2>6312888</td>
+    <td class=cell2>6323369</td>
+    <td class=cell2>95984</td>
+    <td class=cell2>6341284</td>
+  </tr>
+                    <tr>
+    <th class=cell1>土庫國中</th>
+    <td class=cell2>633</td>
+    <td class=cell3>土庫鎮石廟里復興路318號</td>
+    <td class=cell2>6627330</td>
+    <td class=cell2>6625680</td>
+    <td class=cell2>95985</td>
+    <td class=cell2>6341285</td>
+  </tr>
+                    <tr>
+    <th class=cell1>馬光國中</th>
+    <td class=cell2>633</td>
+    <td class=cell3>土庫鎮和平街101號</td>
+    <td class=cell2>6653587</td>
+    <td class=cell2>6654981</td>
+    <td class=cell2>95986</td>
+    <td class=cell2>6341286</td>
+  </tr>
+                    <tr>
+    <th class=cell1>褒忠國中</th>
+    <td class=cell2>634</td>
+    <td class=cell3>褒忠鄉埔姜村中勝路62號</td>
+    <td class=cell2>6972056</td>
+    <td class=cell2>6971641</td>
+    <td class=cell2>95987</td>
+    <td class=cell2>6341287</td>
+  </tr>
+                    <tr>
+    <th class=cell1>元長國中</th>
+    <td class=cell2>655</td>
+    <td class=cell3>元長鄉長南村元南路16號</td>
+    <td class=cell2>7882012</td>
+    <td class=cell2>7881588</td>
+    <td class=cell2>95988</td>
+    <td class=cell2>6341288</td>
+  </tr>
+                    <tr>
+    <th class=cell1>台西國中</th>
+    <td class=cell2>636</td>
+    <td class=cell3>台西鄉中山路408號</td>
+    <td class=cell2>6981400</td>
+    <td class=cell2>6981138</td>
+    <td class=cell2>95989</td>
+    <td class=cell2>6341289</td>
+  </tr>
+                    <tr>
+    <th class=cell1>東勢國中</th>
+    <td class=cell2>635</td>
+    <td class=cell3>東勢鄉東榮路65號</td>
+    <td class=cell2>6991035</td>
+    <td class=cell2>6996463</td>
+    <td class=cell2>95990</td>
+    <td class=cell2>6341290</td>
+  </tr>
+                    <tr>
+    <th class=cell1>四湖國中</th>
+    <td class=cell2>654</td>
+    <td class=cell3>四湖鄉湖西村中正路766號</td>
+    <td class=cell2>7872040</td>
+    <td class=cell2>7873301</td>
+    <td class=cell2>95991</td>
+    <td class=cell2>6341291</td>
+  </tr>
+                    <tr>
+    <th class=cell1>飛沙國中</th>
+    <td class=cell2>654</td>
+    <td class=cell3>四湖鄉飛沙村大同路81號</td>
+    <td class=cell2>7723218</td>
+    <td class=cell2>7720456</td>
+    <td class=cell2>95992</td>
+    <td class=cell2>6341292</td>
+  </tr>
+                    <tr>
+    <th class=cell1>北港國中</th>
+    <td class=cell2>651</td>
+    <td class=cell3>北港鎮民生路102號</td>
+    <td class=cell2>7832022</td>
+    <td class=cell2>7821360</td>
+    <td class=cell2>95993</td>
+    <td class=cell2>6341293</td>
+  </tr>
+                    <tr>
+    <th class=cell1>建國國中</th>
+    <td class=cell2>651</td>
+    <td class=cell3>北港鎮大同路468號</td>
+    <td class=cell2>7832724</td>
+    <td class=cell2>7824533</td>
+    <td class=cell2>95994</td>
+    <td class=cell2>6341294</td>
+  </tr>
+                    <tr>
+    <th class=cell1>口湖國中</th>
+    <td class=cell2>653</td>
+    <td class=cell3>口湖鄉文明路133巷20號</td>
+    <td class=cell2>7892027</td>
+    <td class=cell2>7891057</td>
+    <td class=cell2>95995</td>
+    <td class=cell2>6341295</td>
+  </tr>
+                    <tr>
+    <th class=cell1>宜梧國中</th>
+    <td class=cell2>653</td>
+    <td class=cell3>口湖鄉梧南村光明路1號</td>
+    <td class=cell2>7907254</td>
+    <td class=cell2>7905180</td>
+    <td class=cell2>95996</td>
+    <td class=cell2>6341296</td>
+  </tr>
+                    <tr>
+    <th class=cell1>水林國中</th>
+    <td class=cell2>652</td>
+    <td class=cell3>水林鄉水北村水林路2號</td>
+    <td class=cell2>7852618</td>
+    <td class=cell2>7852114</td>
+    <td class=cell2>95997</td>
+    <td class=cell2>6341297</td>
+  </tr>
+                    <tr>
+    <th class=cell1>蔦松國中</th>
+    <td class=cell2>652</td>
+    <td class=cell3>水林鄉松北村1之1號</td>
+    <td class=cell2>7841801</td>
+    <td class=cell2>7842948</td>
+    <td class=cell2>95998</td>
+    <td class=cell2>6341298</td>
+  </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+</div>
+
+<script>
+    function switchTab(targetId) {
+        const buttons = document.querySelectorAll('.menu-btn');
+        buttons.forEach(btn => btn.classList.remove('active'));
+
+        const sections = document.querySelectorAll('.content-section');
+        sections.forEach(sec => sec.classList.remove('active'));
+
+        const targetSection = document.getElementById('sec-' + targetId);
+        if (targetSection) {
+            targetSection.classList.add('active');
+            const activeBtn = document.getElementById('btn-' + targetId);
+            if(activeBtn) activeBtn.classList.add('active');
+            
+            if (window.innerWidth < 768) {
+                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+    }
+
+    window.onload = function() {
+        switchTab('653'); // 【關鍵修正在這裡】預設直接開啟：口湖鄉 (653)
+    };
+</script>
+</body>
+</html>
