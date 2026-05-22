@@ -17,8 +17,8 @@
 
     /* 整合：通訊錄表格專用變數（若想微調表格配色可在此處修改） */
     --primary-dark-blue: #808080;   /* 原始表格的外框灰色 */
-    --cell1-header-bg: #99CCFF;     /* .cell1: 標頭與校名的粉藍色背景 */
-    --cell2-data-bg: #CCFFFF;       /* .cell2 / .cell3: 資料列的淡藍色背景 */
+    --cell1-header-bg: #CCFFFF;     /* .cell1: 標頭與校名的淡藍色背景 */
+    --cell2-data-bg: #F8F8F8;       /* .cell2 / .cell3: 資料列的淺灰色背景 */
     --text-black: #000000;          
     --text-blue: #004080;           
 }
