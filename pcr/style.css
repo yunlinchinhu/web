@@ -14,6 +14,13 @@
     --header-bg: #99CCFF;          /* 標題背景色 */
     --border-color: #ddd;          /* 邊框顏色 (較淺，現代風格) */
     --font-default: "微軟正黑體", "Microsoft JhengHei", "Verdana", "Arial", "Helvetica", sans-serif;
+
+    /* 整合：通訊錄表格專用變數（若想微調表格配色可在此處修改） */
+    --primary-dark-blue: #808080;   /* 原始表格的外框灰色 */
+    --cell1-header-bg: #99CCFF;     /* .cell1: 標頭與校名的粉藍色背景 */
+    --cell2-data-bg: #CCFFFF;       /* .cell2 / .cell3: 資料列的淡藍色背景 */
+    --text-black: #000000;          
+    --text-blue: #004080;           
 }
 
 body {
@@ -44,7 +51,6 @@ body {
 /* 內容容器：適用於 index.html 和 links.html 的主內容框 */
 .page-container {
     max-width: 1200px;
-    
     margin: 0 auto; /* 居中 */
     
     /* 淺綠色框內部的上下內邊距 (50px)，統一所有頁面風格 */
@@ -57,6 +63,7 @@ body {
     
     /* 統一圓角 */
     border-radius: 8px; 
+    position: relative;
 }
 
 /* Links Grid - 核心佈局容器 (index.html 上的連結群組) */
@@ -103,7 +110,7 @@ body {
 ==================================*/
 
 /* 網站主標題 (H1) */
-.hd0 {
+.hd0, h1 {
     font-size: 2.5em;
     font-weight: 700;
     text-align: center;
@@ -113,8 +120,8 @@ body {
     border-bottom: 3px solid var(--primary-color);
 }
 
-/* 區塊小標題 (H2) */
-.hd1 {
+/* 區塊小標題 (H2 或鄉鎮市標題) */
+.hd1, .section-title {
     font-size: 1.5em;
     font-weight: 700;
     text-align: left;
@@ -138,11 +145,10 @@ a {
 }
 
 a:hover {
-    /* 【已更新！】滑鼠懸停時的淺綠色底色 */
+    /* 滑鼠懸停時的淺綠色底色 */
     background-color: #A8E7AE; 
     /* 懸停字體顏色：暗青藍色 */
     color: #004080; 
-    
     text-decoration: underline;
 }
 
@@ -223,57 +229,169 @@ a:hover {
   公務網站頁面佈局 (Responsive Grid Layout)
 ==================================*/
 
-/* 核心佈局容器：此佈局現在應該放在 links.html 內的 .page-container 裡 */
 .responsive-link-grid {
     display: grid;
     gap: 25px; /* 區塊間距 */
     margin-top: 20px;
     padding: 0;
-    
-    /* 智能調整欄位數量的關鍵：
-       根據螢幕寬度自動調整為 1、2 或 3 欄。
-    */
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 }
 
 
 /*==================================
-  響應式媒體查詢 (Media Queries)
+  整合項目：鄉鎮通訊錄選單與分頁切換 (Menu & Tabs)
+==================================*/
+
+.accessible-brick {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    color: var(--primary-dark-blue);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+    margin-bottom: 30px;
+    background: #eef2f7;
+    padding: 16px;
+    border-radius: 6px;
+    border: 1px solid #ced4da;
+}
+
+.menu-btn {
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #b8c2cc;
+    padding: 10px 6px;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.menu-btn:hover {
+    background-color: var(--cell2-data-bg);
+    border-color: var(--primary-dark-blue);
+}
+
+.menu-btn.active {
+    background-color: var(--primary-dark-blue);
+    color: #ffffff;
+    border-color: var(--primary-dark-blue);
+}
+
+.content-section {
+    display: none;
+    animation: fadeIn 0.25s ease;
+}
+
+.content-section.active {
+    display: block;
+}
+
+.scroll-target {
+    scroll-margin-top: 20px;
+}
+
+
+/*==================================
+  整合項目：通訊錄通訊表格樣式 (Data Tables)
+==================================*/
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    background-color: var(--primary-dark-blue); 
+    padding: 2px; 
+    border-radius: 4px;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 1px; 
+    text-align: left;
+    min-width: 750px;
+}
+
+th {
+    background-color: var(--cell1-header-bg);
+    color: var(--text-black);
+    padding: 10px 12px;
+    font-weight: normal;
+    text-align: center;
+    font-size: 15px;
+}
+
+td {
+    background-color: var(--cell2-data-bg);
+    color: var(--text-blue);
+    padding: 10px 12px;
+    font-size: 15px;
+}
+
+/* 針對帶有原始點 class 的儲存格設定 */
+tr th.cell1, tr td:first-child {
+    background-color: var(--cell1-header-bg) !important;
+    color: var(--text-black) !important;
+    text-align: center;
+    font-weight: normal;
+    width: 15%;
+}
+
+.text-center {
+    text-align: center;
+}
+
+tr:hover td {
+    filter: brightness(0.96); /* 橫條滑過時微幅亮暗提示 */
+}
+
+
+/*==================================
+  響應式媒體查詢與動畫 (Media Queries & Animations)
 ==================================*/
 
 /* 窄螢幕/手機優化 */
 @media (max-width: 650px) {
-    /* 主頁面佈局 */
     .page-container {
-        /* 手機模式下的內邊距 */
         padding: 20px 10px;
     }
     
-    .hd0 {
+    .hd0, h1 {
         font-size: 2em;
     }
     
     .links-grid {
-        grid-template-columns: 1fr; /* 主頁面變回單欄 */
+        grid-template-columns: 1fr;
     }
 
-    /* 公務頁面強制單欄疊放 */
     .responsive-link-grid {
         grid-template-columns: 1fr;
         gap: 15px;
     }
 }
 
-
-/*==================================
-  QR Code 圖片樣式 (響應式)
-==================================*/
-
+/* QR Code 圖片樣式 */
 .qrcode-img {
-    max-width: 100%; /* 圖片寬度最多只能是容器的 100% (關鍵！) */
-    height: auto;    /* 保持圖片的原始比例 (關鍵！) */
+    max-width: 100%;
+    height: auto;
     display: block;  
     margin: 20px auto 0 auto;
     border: 3px solid var(--primary-color); 
     border-radius: 6px;
+}
+
+/* 分頁切換淡入動畫 */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
