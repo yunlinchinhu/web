@@ -4,174 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>雲林縣中小學聯絡資料</title>
-    <style>
-        :root {
-            --primary-dark-blue: #3366FF;   /* 原始表格的外框深藍色 */
-            --cell1-header-bg: #99CCFF;     /* .cell1: 標頭與校名的粉藍色背景 */
-            --cell2-data-bg: #CCFFFF;       /* .cell2 / .cell3: 資料列的淡藍色背景 */
-            --text-black: #000000;          
-            --text-blue: #0000FF;           
-            --bg-color: #f4f6f9;            
-            --card-bg: #ffffff;
-        }
-        body {
-            font-family: "Microsoft JhengHei", "微軟正黑體", Arial, sans-serif;
-            background-color: var(--bg-color);
-            /* 還原原本舊網頁的經典背景圖與固定效果，若不需要可刪除此行 */
-            background-image: url("../../image/bg.gif");
-            background-attachment: fixed;
-            background-position: 0% 100%;
-            background-repeat: repeat;
-            color: #000000;
-            margin: 0;
-            padding: 20px;
-            line-height: 1.5;
-        }
-        .page-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: var(--card-bg);
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
-            padding: 24px;
-            position: relative;
-        }
-        .accessible-brick {
-            position: absolute;
-            top: 24px;
-            left: 24px;
-            color: var(--primary-dark-blue);
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 18px;
-        }
-        h1 {
-            text-align: center;
-            color: #000000;
-            margin-top: 10px;
-            margin-bottom: 24px;
-            font-size: 26px;
-            font-weight: bold;
-        }
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-            gap: 10px;
-            margin-bottom: 30px;
-            background: #eef2f7;
-            padding: 16px;
-            border-radius: 6px;
-            border: 1px solid #ced4da;
-        }
-        .menu-btn {
-            background-color: #ffffff;
-            color: #000000;
-            border: 1px solid #b8c2cc;
-            padding: 10px 6px;
-            text-align: center;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 15px;
-            font-weight: bold;
-            transition: all 0.2s ease;
-            text-decoration: none;
-        }
-        .menu-btn:hover {
-            background-color: var(--cell2-data-bg);
-            border-color: var(--primary-dark-blue);
-        }
-        .menu-btn.active {
-            background-color: var(--primary-dark-blue);
-            color: #ffffff;
-            border-color: var(--primary-dark-blue);
-        }
-        .content-section {
-            display: none;
-            aria-hidden: true;
-            animation: fadeIn 0.25s ease;
-        }
-        .content-section.active {
-            display: block;
-            aria-hidden: false;
-        }
-        .section-title {
-            font-size: 22px;
-            color: #000000;
-            font-weight: bold;
-            border-left: 6px solid var(--primary-dark-blue);
-            padding-left: 12px;
-            margin-bottom: 18px;
-        }
-        .table-responsive {
-            width: 100%;
-            overflow-x: auto;
-            background-color: var(--primary-dark-blue); 
-            padding: 2px; 
-            border-radius: 4px;
-        }
-        table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 1px; /* 這裡的 1px 間距會自然露出表格外框的深藍色 */
-            text-align: left;
-            min-width: 750px;
-        }
-        
-        /* 針對表格欄位樣式與原始點 class 的全面對接 */
-        th, td {
-            padding: 10px 12px;
-            font-size: 15px;
-            border: 0pt; /* 清除原始內聯樣式的 border */
-        }
-        
-        /* 頂部全域欄位名稱的標頭樣式 */
-        thead th {
-            background-color: var(--cell1-header-bg);
-            color: var(--text-black);
-            font-weight: bold;
-            text-align: center;
-        }
-
-        /* 原始 .cell1 類別：用於校名欄位與標頭 */
-        .cell1 {
-            background-color: var(--cell1-header-bg) !important;
-            color: var(--text-black) !important;
-            text-align: center;
-            font-weight: normal;
-        }
-        
-        /* 原始 .cell2 類別：一般置中藍字資料欄 */
-        .cell2 {
-            background-color: var(--cell2-data-bg) !important;
-            color: var(--text-blue) !important;
-            text-align: center;
-        }
-        
-        /* 原始 .cell3 類別：通常用於地址，改為靠左藍字 */
-        .cell3 {
-            background-color: var(--cell2-data-bg) !important;
-            color: var(--text-blue) !important;
-            text-align: left;
-        }
-
-        /* 第一欄校名欄位（不論是 th 或 td）強制設定固定比例寬度 */
-        table tbody tr th:first-child,
-        table tbody tr td:first-child {
-            width: 15%;
-            min-width: 110px;
-        }
-
-        tr:hover td, tr:hover th {
-            filter: brightness(0.96); /* 懸停時整行滑過會稍微變深，增強視覺引導 */
-        }
-        .scroll-target {
-            scroll-margin-top: 20px;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="./style.css">
 </head>
 <body>
 <div class="page-container">
@@ -212,59 +45,59 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <th class="cell1">斗南國小</th>
-                        <td class="cell2">630</td>
-                        <td class="cell3">斗南鎮文昌路150號</td>
-                        <td class="cell2">5972020</td>
-                        <td class="cell2">5966678</td>
-                        <td class="cell2">90927</td>
-                        <td class="cell2">6341127</td>
-                    </tr>
+    <th class=cell1>斗南國小</th>
+    <td class=cell2>630</td>
+    <td class=cell3>斗南鎮文昌路150號</td>
+    <td class=cell2>5972020</td>
+    <td class=cell2>5966678</td>
+    <td class=cell2>90927</td>
+    <td class=cell2>6341127</td>
+  </tr>
                     <tr>
-                        <th class="cell1">大東國小</th>
-                        <td class="cell2">630</td>
-                        <td class="cell3">斗南鎮新崙里港墘1號</td>
-                        <td class="cell2">5972434</td>
-                        <td class="cell2">5968751</td>
-                        <td class="cell2">90930</td>
-                        <td class="cell2">6341130</td>
-                    </tr>
+    <th class=cell1>大東國小</th>
+    <td class=cell2>630</td>
+    <td class=cell3>斗南鎮新崙里港墘1號</td>
+    <td class=cell2>5972434</td>
+    <td class=cell2>5968751</td>
+    <td class=cell2>90930</td>
+    <td class=cell2>6341130</td>
+  </tr>
                     <tr>
-                        <th class="cell1">石龜國小</th>
-                        <td class="cell2">630</td>
-                        <td class="cell3">斗南鎮石龜里南生路1號</td>
-                        <td class="cell2">5972354</td>
-                        <td class="cell2">5961354</td>
-                        <td class="cell2">90929</td>
-                        <td class="cell2">6341129</td>
-                    </tr>
+    <th class=cell1>石龜國小</th>
+    <td class=cell2>630</td>
+    <td class=cell3>斗南鎮石龜里南生路1號</td>
+    <td class=cell2>5972354</td>
+    <td class=cell2>5961354</td>
+    <td class=cell2>90929</td>
+    <td class=cell2>6341129</td>
+  </tr>
                     <tr>
-                        <th class="cell1">重光國小</th>
-                        <td class="cell2">630</td>
-                        <td class="cell3">斗南鎮將軍里溫厝1號</td>
-                        <td class="cell2">5972454</td>
-                        <td class="cell2">5966482</td>
-                        <td class="cell2">90931</td>
-                        <td class="cell2">6341131</td>
-                    </tr>
+    <th class=cell1>重光國小</th>
+    <td class=cell2>630</td>
+    <td class=cell3>斗南鎮將軍里溫厝1號</td>
+    <td class=cell2>5972454</td>
+    <td class=cell2>5966482</td>
+    <td class=cell2>90931</td>
+    <td class=cell2>6341131</td>
+  </tr>
                     <tr>
-                        <th class="cell1">文安國小</th>
-                        <td class="cell2">630</td>
-                        <td class="cell3">斗南鎮延平路一段189號</td>
-                        <td class="cell2">5972265</td>
-                        <td class="cell2">5973431</td>
-                        <td class="cell2">90928</td>
-                        <td class="cell2">6341128</td>
-                    </tr>
+    <th class=cell1>文安國小</th>
+    <td class=cell2>630</td>
+    <td class=cell3>斗南鎮延平路一段189號</td>
+    <td class=cell2>5972265</td>
+    <td class=cell2>5973431</td>
+    <td class=cell2>90928</td>
+    <td class=cell2>6341128</td>
+  </tr>
                     <tr>
-                        <th class="cell1">僑真國小</th>
-                        <td class="cell2">630</td>
-                        <td class="cell3">斗南鎮延平路642號</td>
-                        <td class="cell2">5972241</td>
-                        <td class="cell2">5968419</td>
-                        <td class="cell2">90926</td>
-                        <td class="cell2">6341126</td>
-                    </tr>
+    <th class=cell1>僑真國小</th>
+    <td class=cell2>630</td>
+    <td class=cell3>斗南鎮延平路642號</td>
+    <td class=cell2>5972241</td>
+    <td class=cell2>5968419</td>
+    <td class=cell2>90926</td>
+    <td class=cell2>6341126</td>
+  </tr>
                 </tbody>
             </table>
         </div>
