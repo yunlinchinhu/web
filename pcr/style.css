@@ -10,7 +10,7 @@
     /* 網頁底色：淺灰色 */
     --background-light: #F0F0F0;   
     
-    --main-container-bg: #DDD7FF;  /* 主內容容器的背景色：淺紫色 (Mint Cream) F0FFF0 */
+    --main-container-bg: #D9F1FF;  /* 主內容容器的背景色：很淺的淺綠色 (Mint Cream) F0FFF0 淺紫DDD7FF*/
     --header-bg: #99CCFF;          /* 標題背景色 */
     --border-color: #ddd;          /* 邊框顏色 (較淺，現代風格) */
     --font-default: "微軟正黑體", "Microsoft JhengHei", "Verdana", "Arial", "Helvetica", sans-serif;
